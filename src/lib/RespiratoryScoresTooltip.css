@@ -1,0 +1,16 @@
+
+
+.RespiratoryScoresTooltip-title {
+  margin: 0;
+  font-size: 16px;
+}
+
+.RespiratoryScoresTooltip-table {
+  width: 100%;
+  margin-left: 10px;
+  font-size: 12px;
+}
+
+.RespiratoryScoresTooltip-table-variableName {
+  font-weight: 700;
+}
