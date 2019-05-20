@@ -2,6 +2,11 @@ import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import RespiratoryScoresTooltip from "./lib/RespiratoryScoresTooltip";
 
+const LOCATION_SAMPLE = {
+  "8S:203":{ward:"8S", room:"203"},
+  "8E:301":{ward:"8E", room:"301"}
+}
+
 const ECMO_VARIABLES_SAMPLE = {
   on: {ECMO_Flow_Rate_Weight_Normalized: 92},
   off: null
@@ -38,7 +43,7 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state={pageX:100, pageY:200,
-                location: "ICU",
+                locationSelection: "8S:203",
                 timeStamp: new Date(),
                 ECMOVariablesSelection: "on",
                 VADVariablesSelection: "Abiomed",
@@ -47,7 +52,7 @@ class App extends Component{
   }
   render() {
     let { pageX,pageY,
-          location,timeStamp,
+          locationSelection,timeStamp,
           ECMOVariablesSelection,VADVariablesSelection,respiratoryVariablesSelection} = this.state;
     return (
       <>
@@ -72,11 +77,18 @@ class App extends Component{
         {/*location*/}
         <div>
           location:
-          <input  type="text" value={location}
-                  onChange={(ev)=> {
-                              this.setState({location:ev.target.value});
+          preset:
+          <select value={locationSelection}
+                  onChange={(ev)=>{
+                              this.setState({locationSelection:ev.target.value});
                             }}
-          />
+          >
+            <option value="8S:203">8S:203</option>
+            <option value="8E:301">8E:301</option>
+          </select> 
+          <pre>
+            {JSON.stringify(LOCATION_SAMPLE[locationSelection])}
+          </pre>
         </div>
         {/*timeStamp*/}
         <div>
@@ -123,7 +135,7 @@ class App extends Component{
           </pre>
         </div>
         {/*Actual tooltip display*/}
-        <RespiratoryScoresTooltip location={location} timeStamp={timeStamp}
+        <RespiratoryScoresTooltip location={LOCATION_SAMPLE[locationSelection]} timeStamp={timeStamp}
                                   ECMOVariables={ECMO_VARIABLES_SAMPLE[ECMOVariablesSelection]}
                                   VADVariables={VAD_VARIABLES_SAMPLE[VADVariablesSelection]}
                                   respiratoryVariables={{"RST":"PSV","PIP":28,"FIO2":30}}

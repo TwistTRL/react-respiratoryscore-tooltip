@@ -81,10 +81,13 @@ class RespiratoryScoresTooltip extends PureComponent {
   }
 
   getLocationDisplay(location,timeStamp) {
+    let {ward,room} = location;
     return (
-      <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",backgroundColor:"#ffe7c9",padding:5,boxShadow:"0px 0px 5px black",whiteSpace:"nowrap"}}>
+      <div style={{ display:"flex",flexDirection:"row",justifyContent:"space-between",
+                    padding:5,boxShadow:"0px 0px 5px black",whiteSpace:"nowrap",
+                    backgroundColor: ward==="8S" ? "#ff0000" : "#ffe7c9"}}>
         <div style={{display:"flex",flexDirection:"column",justifyContent:"center"}}>
-          <h1 className="RespiratoryScoresTooltip-title">Location: {location}</h1>
+          <h1 className="RespiratoryScoresTooltip-title">{ward}: {room}</h1>
         </div>
         <div style={{display:"flex",flexDirection:"column",fontSize:"12px",fontStyle:"italic"}}>
           <div style={{textAlign:"right"}}>
@@ -139,9 +142,9 @@ class RespiratoryScoresTooltip extends PureComponent {
     }
     if (Machine_Type==="Berlin") {
       let Left_Beat_Rate = VADVariables["Berlin Heart Left Beat Rate"];
-      let Left_Pump = VADVariables["Berlin Heart Left Beat Rate"];
+      let Left_Pump = VADVariables["Berlin Heart Left Pump"];
       let Right_Beat_Rate = VADVariables["Berlin Heart Right Beat Rate"];
-      let Right_Pump = VADVariables["Berlin Heart Right Beat Rate"];
+      let Right_Pump = VADVariables["Berlin Heart Right Pump"];
       let Membrane_Movement_Left_Ejection = VADVariables["Membrane Movement, Left Ejection"] || "";
       let Membrane_Movement_Left_Filling = VADVariables["Membrane Movement, Left Filling"] || "";
       return (
