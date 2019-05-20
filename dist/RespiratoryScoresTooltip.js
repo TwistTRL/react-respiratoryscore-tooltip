@@ -112,17 +112,23 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
   }, {
     key: "getLocationDisplay",
     value: function getLocationDisplay(location, timeStamp) {
+      var ward = location.ward,
+          room = location.room;
+
       return _react2.default.createElement(
         "div",
-        { style: { display: "flex", flexDirection: "row", justifyContent: "space-between", backgroundColor: "#ffe7c9", padding: 5, boxShadow: "0px 0px 5px black", whiteSpace: "nowrap" } },
+        { style: { display: "flex", flexDirection: "row", justifyContent: "space-between",
+            padding: 5, boxShadow: "0px 0px 5px black", whiteSpace: "nowrap",
+            backgroundColor: ward === "8S" ? "#ff0000" : "#ffe7c9" } },
         _react2.default.createElement(
           "div",
           { style: { display: "flex", flexDirection: "column", justifyContent: "center" } },
           _react2.default.createElement(
             "h1",
             { className: "RespiratoryScoresTooltip-title" },
-            "Location: ",
-            location
+            ward,
+            ": ",
+            room
           )
         ),
         _react2.default.createElement(
@@ -234,9 +240,9 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
       }
       if (Machine_Type === "Berlin") {
         var Left_Beat_Rate = VADVariables["Berlin Heart Left Beat Rate"];
-        var Left_Pump = VADVariables["Berlin Heart Left Beat Rate"];
+        var Left_Pump = VADVariables["Berlin Heart Left Pump"];
         var Right_Beat_Rate = VADVariables["Berlin Heart Right Beat Rate"];
-        var Right_Pump = VADVariables["Berlin Heart Right Beat Rate"];
+        var Right_Pump = VADVariables["Berlin Heart Right Pump"];
         var Membrane_Movement_Left_Ejection = VADVariables["Membrane Movement, Left Ejection"] || "";
         var Membrane_Movement_Left_Filling = VADVariables["Membrane Movement, Left Filling"] || "";
         return _react2.default.createElement(
