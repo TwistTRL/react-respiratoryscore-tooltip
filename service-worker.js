@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/react-respiratoryscore-tooltip/precache-manifest.efeab436eeafe6adadfa8da559f799db.js"
+  "/react-respiratoryscore-tooltip/precache-manifest.2e06574889781509cae44c8e5fb9a78d.js"
 );
 
 workbox.clientsClaim();
