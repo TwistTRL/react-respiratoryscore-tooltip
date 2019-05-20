@@ -104,10 +104,12 @@ class RespiratoryScoresTooltip extends PureComponent {
       <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
         <h1 className="RespiratoryScoresTooltip-title">ECMO</h1>
         <table className="RespiratoryScoresTooltip-table">
-          <tr>
-            <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
-            <td>{ECMO_Flow_Rate_Weight_Normalized} mL/kg/min</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
+              <td>{ECMO_Flow_Rate_Weight_Normalized} mL/kg/min</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     );
@@ -115,15 +117,147 @@ class RespiratoryScoresTooltip extends PureComponent {
 
   getVADDisplay(VADVariables) {
     let {Machine_Type} = VADVariables;
-    if (Machine_Type==="RotaWare") {
+    if (Machine_Type==="Abiomed") {
+      let Abiomed_Cardiac_Index = VADVariables["Abiomed Cardiac Index"];
       return (
         <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
           <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
           <table className="RespiratoryScoresTooltip-table">
-            <tr>
-              <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
-              <td>Machine_Type</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
+                <td>{Machine_Type}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Cardiac Index</td>
+                <td>{Abiomed_Cardiac_Index}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (Machine_Type==="Berlin") {
+      let Left_Beat_Rate = VADVariables["Berlin Heart Left Beat Rate"];
+      let Left_Pump = VADVariables["Berlin Heart Left Beat Rate"];
+      let Right_Beat_Rate = VADVariables["Berlin Heart Right Beat Rate"];
+      let Right_Pump = VADVariables["Berlin Heart Right Beat Rate"];
+      let Membrane_Movement_Left_Ejection = VADVariables["Membrane Movement, Left Ejection"] || "";
+      let Membrane_Movement_Left_Filling = VADVariables["Membrane Movement, Left Filling"] || "";
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
+                <td>{Machine_Type}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Left Beat Rate</td>
+                <td>{Left_Beat_Rate}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Left Pump</td>
+                <td>{Left_Pump}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Right Beat Rate</td>
+                <td>{Right_Beat_Rate}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Right Pump</td>
+                <td>{Right_Pump}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Left Ejection</td>
+                <td>{Membrane_Movement_Left_Ejection.slice(0,2)}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Left Filling</td>
+                <td>{Membrane_Movement_Left_Filling.slice(0,2)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (Machine_Type==="HeartWare") {
+      let HeartWare_Pump_Flow = VADVariables["HeartWare Pump Flow"];
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
+                <td>{Machine_Type}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
+                <td>{HeartWare_Pump_Flow}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (Machine_Type==="Impella") {
+      let Impella_Flow_Rate = VADVariables["Impella Flow Rate"];
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
+                <td>{Machine_Type}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
+                <td>{Impella_Flow_Rate}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (Machine_Type==="Quadrox") {
+      let Quadrox_Flow = VADVariables["Quadrox Flow (L/min)"];
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
+                <td>{Machine_Type}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
+                <td>{Quadrox_Flow}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (Machine_Type==="RotaFlow") {
+      let RateFlow_Flow_Measure = VADVariables["RotaFlow Flow Measure (L/min)"];
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
+                <td>{Machine_Type}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
+                <td>{RateFlow_Flow_Measure}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       );
@@ -138,16 +272,18 @@ class RespiratoryScoresTooltip extends PureComponent {
         <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
           <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
           <table className="RespiratoryScoresTooltip-table">
-            <tr>
-              <td className="RespiratoryScoresTooltip-table-variableName">PIP</td>
-              <td>{PIP} cm H<sub>2</sub>O</td>
-              <td className="RespiratoryScoresTooltip-table-variableName">FiO<sub>2</sub></td>
-              <td>{FIO2}%</td>
-            </tr>
-            <tr>
-              <td className="RespiratoryScoresTooltip-table-variableName">PEEP</td>
-              <td>{PEEP} cm H<sub>2</sub>O</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">PIP</td>
+                <td>{PIP} cm H<sub>2</sub>O</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">FiO<sub>2</sub></td>
+                <td>{FIO2}%</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">PEEP</td>
+                <td>{PEEP} cm H<sub>2</sub>O</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       );
