@@ -158,18 +158,22 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
           "table",
           { className: "RespiratoryScoresTooltip-table" },
           _react2.default.createElement(
-            "tr",
+            "tbody",
             null,
             _react2.default.createElement(
-              "td",
-              { className: "RespiratoryScoresTooltip-table-variableName" },
-              "Flow"
-            ),
-            _react2.default.createElement(
-              "td",
+              "tr",
               null,
-              ECMO_Flow_Rate_Weight_Normalized,
-              " mL/kg/min"
+              _react2.default.createElement(
+                "td",
+                { className: "RespiratoryScoresTooltip-table-variableName" },
+                "Flow"
+              ),
+              _react2.default.createElement(
+                "td",
+                null,
+                ECMO_Flow_Rate_Weight_Normalized,
+                " mL/kg/min"
+              )
             )
           )
         )
@@ -180,7 +184,8 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
     value: function getVADDisplay(VADVariables) {
       var Machine_Type = VADVariables.Machine_Type;
 
-      if (Machine_Type === "RotaWare") {
+      if (Machine_Type === "Abiomed") {
+        var Abiomed_Cardiac_Index = VADVariables["Abiomed Cardiac Index"];
         return _react2.default.createElement(
           "div",
           { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
@@ -193,17 +198,350 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
             "table",
             { className: "RespiratoryScoresTooltip-table" },
             _react2.default.createElement(
-              "tr",
+              "tbody",
               null,
               _react2.default.createElement(
-                "td",
-                { className: "RespiratoryScoresTooltip-table-variableName" },
-                "Machine"
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Machine"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Machine_Type
+                )
               ),
               _react2.default.createElement(
-                "td",
+                "tr",
                 null,
-                "Machine_Type"
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Cardiac Index"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Abiomed_Cardiac_Index
+                )
+              )
+            )
+          )
+        );
+      }
+      if (Machine_Type === "Berlin") {
+        var Left_Beat_Rate = VADVariables["Berlin Heart Left Beat Rate"];
+        var Left_Pump = VADVariables["Berlin Heart Left Beat Rate"];
+        var Right_Beat_Rate = VADVariables["Berlin Heart Right Beat Rate"];
+        var Right_Pump = VADVariables["Berlin Heart Right Beat Rate"];
+        var Membrane_Movement_Left_Ejection = VADVariables["Membrane Movement, Left Ejection"] || "";
+        var Membrane_Movement_Left_Filling = VADVariables["Membrane Movement, Left Filling"] || "";
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            "VAD"
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Machine"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Machine_Type
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Left Beat Rate"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Left_Beat_Rate
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Left Pump"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Left_Pump
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Right Beat Rate"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Right_Beat_Rate
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Right Pump"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Right_Pump
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Left Ejection"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Membrane_Movement_Left_Ejection.slice(0, 2)
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Left Filling"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Membrane_Movement_Left_Filling.slice(0, 2)
+                )
+              )
+            )
+          )
+        );
+      }
+      if (Machine_Type === "HeartWare") {
+        var HeartWare_Pump_Flow = VADVariables["HeartWare Pump Flow"];
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            "VAD"
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Machine"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Machine_Type
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Flow"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  HeartWare_Pump_Flow
+                )
+              )
+            )
+          )
+        );
+      }
+      if (Machine_Type === "Impella") {
+        var Impella_Flow_Rate = VADVariables["Impella Flow Rate"];
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            "VAD"
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Machine"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Machine_Type
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Flow"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Impella_Flow_Rate
+                )
+              )
+            )
+          )
+        );
+      }
+      if (Machine_Type === "Quadrox") {
+        var Quadrox_Flow = VADVariables["Quadrox Flow (L/min)"];
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            "VAD"
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Machine"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Machine_Type
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Flow"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Quadrox_Flow
+                )
+              )
+            )
+          )
+        );
+      }
+      if (Machine_Type === "RotaFlow") {
+        var RateFlow_Flow_Measure = VADVariables["RotaFlow Flow Measure (L/min)"];
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            "VAD"
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Machine"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Machine_Type
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Flow"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  RateFlow_Flow_Measure
+                )
               )
             )
           )
@@ -232,61 +570,65 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
             "table",
             { className: "RespiratoryScoresTooltip-table" },
             _react2.default.createElement(
-              "tr",
+              "tbody",
               null,
               _react2.default.createElement(
-                "td",
-                { className: "RespiratoryScoresTooltip-table-variableName" },
-                "PIP"
-              ),
-              _react2.default.createElement(
-                "td",
+                "tr",
                 null,
-                PIP,
-                " cm H",
                 _react2.default.createElement(
-                  "sub",
-                  null,
-                  "2"
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "PIP"
                 ),
-                "O"
-              ),
-              _react2.default.createElement(
-                "td",
-                { className: "RespiratoryScoresTooltip-table-variableName" },
-                "FiO",
                 _react2.default.createElement(
-                  "sub",
+                  "td",
                   null,
-                  "2"
+                  PIP,
+                  " cm H",
+                  _react2.default.createElement(
+                    "sub",
+                    null,
+                    "2"
+                  ),
+                  "O"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "FiO",
+                  _react2.default.createElement(
+                    "sub",
+                    null,
+                    "2"
+                  )
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  FIO2,
+                  "%"
                 )
               ),
               _react2.default.createElement(
-                "td",
+                "tr",
                 null,
-                FIO2,
-                "%"
-              )
-            ),
-            _react2.default.createElement(
-              "tr",
-              null,
-              _react2.default.createElement(
-                "td",
-                { className: "RespiratoryScoresTooltip-table-variableName" },
-                "PEEP"
-              ),
-              _react2.default.createElement(
-                "td",
-                null,
-                PEEP,
-                " cm H",
                 _react2.default.createElement(
-                  "sub",
-                  null,
-                  "2"
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "PEEP"
                 ),
-                "O"
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  PEEP,
+                  " cm H",
+                  _react2.default.createElement(
+                    "sub",
+                    null,
+                    "2"
+                  ),
+                  "O"
+                )
               )
             )
           )
