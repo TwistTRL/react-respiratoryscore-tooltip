@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/react-respiratoryscore-tooltip/static/js/runtime~main.100f255d.js"
   },
   {
-    "revision": "0480409e0b19c1411899",
-    "url": "/react-respiratoryscore-tooltip/static/js/main.de0e961d.chunk.js"
+    "revision": "f8bf98d3bf59a0b6a7c1",
+    "url": "/react-respiratoryscore-tooltip/static/js/main.b3c576f7.chunk.js"
   },
   {
     "revision": "10abd5bc0bfb6beb9b79",
     "url": "/react-respiratoryscore-tooltip/static/js/2.b491bb78.chunk.js"
   },
   {
-    "revision": "0480409e0b19c1411899",
+    "revision": "f8bf98d3bf59a0b6a7c1",
     "url": "/react-respiratoryscore-tooltip/static/css/main.e765f360.chunk.css"
   },
   {
-    "revision": "53d6f70dbdf01c5a2d8c3ce4873991eb",
+    "revision": "427ea4a659a76ffda001f7e3d50e976a",
     "url": "/react-respiratoryscore-tooltip/index.html"
   }
 ];
