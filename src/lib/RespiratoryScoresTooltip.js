@@ -265,7 +265,7 @@ class RespiratoryScoresTooltip extends PureComponent {
             <tbody>
               <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">Flow Rate</td>
-                <td>{FlowRate} !!!unit!!!</td>
+                <td>{FlowRate} LPM</td>
               </tr>
               <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">FiO<sub>2</sub></td>
