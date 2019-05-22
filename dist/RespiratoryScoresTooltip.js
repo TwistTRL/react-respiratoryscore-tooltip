@@ -22,42 +22,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var RSVToDisplay = {
-  "RA": [],
-  "NC": ["NC_Flow", "FiO2", "iNO_Set"],
-  "MASK": ["MASK_Flow", "FiO2"],
-  "BB": ["NC_Flow", "FiO2"],
-  "HFNC": ["HFNC_Flow", "FiO2", "iNO_Set"],
-  "CPAP": ["CPAP_PEEP_comb", "FiO2"],
-  "BIPAP": ["BIPAP_IPAP", "BIPAP_EPAP", "BIPAP_Rate", "FiO2"],
-  "PSV": ["PEEP", "PS", "FiO2", "iNO_Set", "duration"],
-  "PCV": ["VT_set_norm", "PIP_comb", "PEEP", "PS", "VR", "FiO2", "iNO_Set", "duration"],
-  "VCV": ["VT_set_norm", "PEEP", "PS", "VR", "FiO2", "iNO_Set"],
-  "HFOV": ["HFOV_MPAW", "HFOV_Amplitude", "HFOV_Frequency", "FiO2", "iNO_Set"],
-  "HFJV": ["FiO2", "HFJV_PEEP", "HFJV_PIP", "HFJV_Rate", "iNO_Set"],
-  "ECMO": ["ECMO_Flow_norm"]
-};
-
-var TITLE_COLOR = {
-  "RA": "#A4D65E",
-  "NC": "#A4D65E",
-  "MASK": "#A4D65E",
-  "BB": "#A4D65E",
-
-  "HFNC": "#41B6E6",
-  "CPAP": "#41B6E6",
-  "BIPAP": "#41B6E6",
-
-  "PSV": "#FBDB65",
-  "PCV": "#FBDB65",
-  "VCV": "#FBDB65",
-
-  "HFOV": "#C6579A",
-  "HFJV": "#C6579A",
-
-  "ECMO": "#F6323E"
-};
-
 var RespiratoryScoresTooltip = function (_PureComponent) {
   _inherits(RespiratoryScoresTooltip, _PureComponent);
 
@@ -119,7 +83,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
         "div",
         { style: { display: "flex", flexDirection: "row", justifyContent: "space-between",
             padding: 5, boxShadow: "0px 0px 5px black", whiteSpace: "nowrap",
-            backgroundColor: ward === "8S" ? "#ff0000" : "#ffe7c9" } },
+            backgroundColor: ward === "8S" ? "#ff2a22" : "#ffe7c9" } },
         _react2.default.createElement(
           "div",
           { style: { display: "flex", flexDirection: "column", justifyContent: "center" } },
@@ -212,7 +176,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "Machine"
+                  "Device"
                 ),
                 _react2.default.createElement(
                   "td",
@@ -265,7 +229,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "Machine"
+                  "Device"
                 ),
                 _react2.default.createElement(
                   "td",
@@ -284,7 +248,8 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   null,
-                  Left_Beat_Rate
+                  Left_Beat_Rate,
+                  " bpm"
                 )
               ),
               _react2.default.createElement(
@@ -298,7 +263,8 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   null,
-                  Left_Pump
+                  Left_Pump,
+                  " mL/kg/min"
                 )
               ),
               _react2.default.createElement(
@@ -312,7 +278,8 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   null,
-                  Right_Beat_Rate
+                  Right_Beat_Rate,
+                  " bpm"
                 )
               ),
               _react2.default.createElement(
@@ -326,7 +293,8 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   null,
-                  Right_Pump
+                  Right_Pump,
+                  " mL/kg/min"
                 )
               ),
               _react2.default.createElement(
@@ -383,7 +351,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "Machine"
+                  "Device"
                 ),
                 _react2.default.createElement(
                   "td",
@@ -402,7 +370,8 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   null,
-                  HeartWare_Pump_Flow
+                  HeartWare_Pump_Flow,
+                  " LPM"
                 )
               )
             )
@@ -431,12 +400,13 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "Machine"
+                  "Device"
                 ),
                 _react2.default.createElement(
                   "td",
                   null,
-                  Machine_Type
+                  Machine_Type,
+                  " LPM"
                 )
               ),
               _react2.default.createElement(
@@ -450,7 +420,8 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   null,
-                  Impella_Flow_Rate
+                  Impella_Flow_Rate,
+                  " LPM"
                 )
               )
             )
@@ -479,7 +450,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "Machine"
+                  "Device"
                 ),
                 _react2.default.createElement(
                   "td",
@@ -498,7 +469,8 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   null,
-                  Quadrox_Flow
+                  Quadrox_Flow,
+                  " LPM"
                 )
               )
             )
@@ -527,7 +499,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "Machine"
+                  "Device"
                 ),
                 _react2.default.createElement(
                   "td",
@@ -559,10 +531,971 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
     value: function getRespiratoryDisplay(respiratoryVariables) {
       var RST = respiratoryVariables.RST;
 
+      if (RST === "RA") {
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            RST
+          )
+        );
+      }
+      if (RST === "MASK") {
+        var FiO2 = respiratoryVariables.FiO2;
+
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            RST
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "FiO2"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  FiO2,
+                  "%"
+                )
+              )
+            )
+          )
+        );
+      }
+      if (RST === "BB") {
+        var FlowRate = respiratoryVariables["Flow Rate"];
+        var _FiO = respiratoryVariables["FiO2"];
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            respiratoryVariables.RST
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Flow Rate"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  FlowRate,
+                  " !!!unit!!!"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "FiO",
+                  _react2.default.createElement(
+                    "sub",
+                    null,
+                    "2"
+                  )
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  _FiO,
+                  "%"
+                )
+              )
+            )
+          )
+        );
+      }
+      if (RST === "NC") {
+        var _FlowRate = respiratoryVariables["Flow Rate"];
+        var _FiO2 = respiratoryVariables["FiO2"];
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            respiratoryVariables.RST
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Flow Rate"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  _FlowRate,
+                  " LPM"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "FiO",
+                  _react2.default.createElement(
+                    "sub",
+                    null,
+                    "2"
+                  )
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  _FiO2,
+                  "%"
+                )
+              )
+            )
+          )
+        );
+      }
+      if (RST === "HFNC") {
+        var _FiO3 = respiratoryVariables["FiO2"];
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            respiratoryVariables.RST
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "FiO2"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  _FiO3,
+                  " cm H",
+                  _react2.default.createElement(
+                    "sub",
+                    null,
+                    "2"
+                  ),
+                  "O"
+                )
+              )
+            )
+          )
+        );
+      }
+      if (RST === "CPAP") {
+        var CPAP = respiratoryVariables["CPAP"];
+        var CPAPFlow = respiratoryVariables["CPAP Flow"];
+        var Mask = respiratoryVariables["Mask"];
+        var _FiO4 = respiratoryVariables["FiO2"];
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            respiratoryVariables.RST
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "CPAP"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  CPAP,
+                  " cm H",
+                  _react2.default.createElement(
+                    "sub",
+                    null,
+                    "2"
+                  ),
+                  "O"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "CPAP Flow"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  CPAPFlow,
+                  " LPM"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Mask"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Mask
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "FiO2"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  _FiO4,
+                  " cm H",
+                  _react2.default.createElement(
+                    "sub",
+                    null,
+                    "2"
+                  ),
+                  "O"
+                )
+              )
+            )
+          )
+        );
+      }
+      if (RST === "BIPAP") {
+        var IPAP = respiratoryVariables["IPAP"];
+        var EPAP = respiratoryVariables["EPAP"];
+        var Rate = respiratoryVariables["Rate"];
+        var RiseTime = respiratoryVariables["Rise Time"];
+        var _Mask = respiratoryVariables["Mask"];
+        var _FiO5 = respiratoryVariables["FiO2"];
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            respiratoryVariables.RST
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "IPAP"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  IPAP,
+                  " cm H",
+                  _react2.default.createElement(
+                    "sub",
+                    null,
+                    "2"
+                  ),
+                  "O"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "EPAP"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  EPAP,
+                  " cm H",
+                  _react2.default.createElement(
+                    "sub",
+                    null,
+                    "2"
+                  ),
+                  "O"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Rate"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Rate,
+                  " BPM"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Rise Time"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  RiseTime,
+                  " sec"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Mask"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  _Mask
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "FiO2"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  _FiO5,
+                  "%"
+                )
+              )
+            )
+          )
+        );
+      }
+      if (RST === "BVM") {
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            respiratoryVariables.RST
+          )
+        );
+      }
       if (RST === "PSV") {
-        var PIP = respiratoryVariables.PIP,
-            PEEP = respiratoryVariables.PEEP,
-            FIO2 = respiratoryVariables.FIO2;
+        var PS = respiratoryVariables.PS;
+        var PEEP = respiratoryVariables.PEEP;
+        var _FiO6 = respiratoryVariables.FiO2;
+        var Tv = respiratoryVariables.Tv;
+        var RR = respiratoryVariables.RR;
+        var EtCO2 = respiratoryVariables.EtCO2;
+
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            respiratoryVariables.RST
+          ),
+          _react2.default.createElement(
+            "div",
+            { style: { display: "flex" } },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "table",
+                { className: "RespiratoryScoresTooltip-table" },
+                _react2.default.createElement(
+                  "tbody",
+                  null,
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "PS"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      PS,
+                      " cm H",
+                      _react2.default.createElement(
+                        "sub",
+                        null,
+                        "2"
+                      ),
+                      "O"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "PEEP"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      PEEP,
+                      " cm H",
+                      _react2.default.createElement(
+                        "sub",
+                        null,
+                        "2"
+                      ),
+                      "O"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "FiO2"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _FiO6,
+                      "%"
+                    )
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "table",
+                { className: "RespiratoryScoresTooltip-table" },
+                _react2.default.createElement(
+                  "tbody",
+                  null,
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "Tv"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      Tv,
+                      " mL"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "RR"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      RR,
+                      " BPM"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "EtCO2"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      EtCO2,
+                      " cm H",
+                      _react2.default.createElement(
+                        "sub",
+                        null,
+                        "2"
+                      ),
+                      "O"
+                    )
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+      if (RST === "PCV") {
+        var PIP = respiratoryVariables.PIP;
+        var _PEEP = respiratoryVariables.PEEP;
+        var VR = respiratoryVariables.VR;
+        var _PS = respiratoryVariables.PS;
+        var _FiO7 = respiratoryVariables.FiO2;
+
+        var TvMandatory = respiratoryVariables["Tv (mandatory)"];
+        var TvSpontaneous = respiratoryVariables["Tv (spontaneous)"];
+        var _RR = respiratoryVariables.RR;
+        var _EtCO = respiratoryVariables.EtCO2;
+
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            respiratoryVariables.RST
+          ),
+          _react2.default.createElement(
+            "div",
+            { style: { display: "flex" } },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "table",
+                { className: "RespiratoryScoresTooltip-table" },
+                _react2.default.createElement(
+                  "tbody",
+                  null,
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "PIP"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      PIP,
+                      " cm H",
+                      _react2.default.createElement(
+                        "sub",
+                        null,
+                        "2"
+                      ),
+                      "O"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "PEEP"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _PEEP,
+                      " cm H",
+                      _react2.default.createElement(
+                        "sub",
+                        null,
+                        "2"
+                      ),
+                      "O"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "VR"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      VR,
+                      " BPM"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "PS"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _PS,
+                      " mL"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "FiO2"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _FiO7,
+                      " mL"
+                    )
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "table",
+                { className: "RespiratoryScoresTooltip-table" },
+                _react2.default.createElement(
+                  "tbody",
+                  null,
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "Tv (mand)"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      TvMandatory,
+                      " mL"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "Tv (spont)"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      TvSpontaneous,
+                      " BPM"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "RR"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _RR,
+                      " cm H",
+                      _react2.default.createElement(
+                        "sub",
+                        null,
+                        "2"
+                      ),
+                      "O"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "EtCO2"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _EtCO,
+                      " cm H",
+                      _react2.default.createElement(
+                        "sub",
+                        null,
+                        "2"
+                      ),
+                      "O"
+                    )
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+      if (RST === "VCV") {
+        var TvSet = respiratoryVariables["Tv (set)"].TvSet;
+        var _PEEP2 = respiratoryVariables.PEEP;
+        var _PS2 = respiratoryVariables.PS;
+        var _FiO8 = respiratoryVariables.FiO2;
+        var _PIP = respiratoryVariables.PIP;
+        var _RR2 = respiratoryVariables.RR;
+        var _EtCO2 = respiratoryVariables.EtCO2;
+
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            respiratoryVariables.RST
+          ),
+          _react2.default.createElement(
+            "div",
+            { style: { display: "flex" } },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "table",
+                { className: "RespiratoryScoresTooltip-table" },
+                _react2.default.createElement(
+                  "tbody",
+                  null,
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "Tv (set)"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      TvSet,
+                      " mL"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "PEEP"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _PEEP2,
+                      " cm H",
+                      _react2.default.createElement(
+                        "sub",
+                        null,
+                        "2"
+                      ),
+                      "O"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "PS"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _PS2,
+                      " BPM"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "FiO2"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _FiO8,
+                      " mL"
+                    )
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "table",
+                { className: "RespiratoryScoresTooltip-table" },
+                _react2.default.createElement(
+                  "tbody",
+                  null,
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "PIP"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _PIP,
+                      " mL"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "RR"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _RR2,
+                      " BPM"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "tr",
+                    null,
+                    _react2.default.createElement(
+                      "td",
+                      { className: "RespiratoryScoresTooltip-table-variableName" },
+                      "EtCO2"
+                    ),
+                    _react2.default.createElement(
+                      "td",
+                      null,
+                      _EtCO2,
+                      " cm H",
+                      _react2.default.createElement(
+                        "sub",
+                        null,
+                        "2"
+                      ),
+                      "O"
+                    )
+                  )
+                )
+              )
+            )
+          )
+        );
+      }
+      if (RST === "HFOV") {
+        var MAP = respiratoryVariables.MAP;
+        var Amplitude = respiratoryVariables.Amplitude;
+        var Frequency = respiratoryVariables.Frequency;
+        var Power = respiratoryVariables.Power;
+        var _FiO9 = respiratoryVariables.FiO2;
+        var Flow = respiratoryVariables.Flow;
 
         return _react2.default.createElement(
           "div",
@@ -584,12 +1517,187 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "PIP"
+                  "MAP"
                 ),
                 _react2.default.createElement(
                   "td",
                   null,
-                  PIP,
+                  MAP
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Amplitude"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Amplitude
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Frequency"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Frequency,
+                  " Hz"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Power"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Power
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "FiO2"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  _FiO9,
+                  "%"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Flow"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  Flow,
+                  " LPM"
+                )
+              )
+            )
+          )
+        );
+      }
+      if (RST === "HFJV") {
+        var HFJVPIP = respiratoryVariables["HFJV PIP"];
+        var HFJVRate = respiratoryVariables["HFJV Rate"];
+        var HFJViTime = respiratoryVariables["HFJV iTime"];
+        var HFJVMAP = respiratoryVariables["HFJV MAP"];
+        var HFJVPEEP = respiratoryVariables["HFJV PEEP"];
+        var _FiO10 = respiratoryVariables.FiO2;
+        var _PIP2 = respiratoryVariables.PIP;
+        var _PEEP3 = respiratoryVariables.PEEP;
+        var _Rate = respiratoryVariables.Rate;
+
+        return _react2.default.createElement(
+          "div",
+          { style: { padding: 5, backgroundColor: "#fff8ef", fontSize: "12px", whiteSpace: "nowrap" } },
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            respiratoryVariables.RST
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "HFJVPIP"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  HFJVPIP,
+                  " mL"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "HFJVRate"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  HFJVRate,
+                  " BPM"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "HFJViTime"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  HFJViTime,
+                  " Sec"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "HFJVMAP"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  HFJVMAP
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "HFJVPEEP"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  HFJVPEEP,
                   " cm H",
                   _react2.default.createElement(
                     "sub",
@@ -597,22 +1705,49 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                     "2"
                   ),
                   "O"
-                ),
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "FiO",
-                  _react2.default.createElement(
-                    "sub",
-                    null,
-                    "2"
-                  )
+                  "FiO2"
                 ),
                 _react2.default.createElement(
                   "td",
                   null,
-                  FIO2,
+                  _FiO10,
                   "%"
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            "h1",
+            { className: "RespiratoryScoresTooltip-title" },
+            "CMV"
+          ),
+          _react2.default.createElement(
+            "table",
+            { className: "RespiratoryScoresTooltip-table" },
+            _react2.default.createElement(
+              "tbody",
+              null,
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "PIP"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  _PIP2,
+                  " mL"
                 )
               ),
               _react2.default.createElement(
@@ -626,7 +1761,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   null,
-                  PEEP,
+                  _PEEP3,
                   " cm H",
                   _react2.default.createElement(
                     "sub",
@@ -634,6 +1769,21 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                     "2"
                   ),
                   "O"
+                )
+              ),
+              _react2.default.createElement(
+                "tr",
+                null,
+                _react2.default.createElement(
+                  "td",
+                  { className: "RespiratoryScoresTooltip-table-variableName" },
+                  "Rate"
+                ),
+                _react2.default.createElement(
+                  "td",
+                  null,
+                  _Rate,
+                  " BPM"
                 )
               )
             )

@@ -2,43 +2,6 @@ import React, {PureComponent} from "react";
 import {format} from "date-fns";
 import "./RespiratoryScoresTooltip.css";
 
-const RSVToDisplay = {
-    "RA":[],
-    "NC":["NC_Flow","FiO2","iNO_Set"],
-    "MASK":["MASK_Flow","FiO2"],
-    "BB":["NC_Flow","FiO2"],
-    "HFNC":["HFNC_Flow","FiO2","iNO_Set"],
-    "CPAP":["CPAP_PEEP_comb","FiO2"],
-    "BIPAP":["BIPAP_IPAP","BIPAP_EPAP","BIPAP_Rate","FiO2"],
-    "PSV":["PEEP","PS","FiO2","iNO_Set","duration"],
-    "PCV":["VT_set_norm","PIP_comb","PEEP","PS","VR","FiO2","iNO_Set","duration"],
-    "VCV":["VT_set_norm","PEEP","PS","VR","FiO2","iNO_Set"],
-    "HFOV":["HFOV_MPAW","HFOV_Amplitude","HFOV_Frequency","FiO2","iNO_Set"],
-    "HFJV":["FiO2","HFJV_PEEP","HFJV_PIP","HFJV_Rate","iNO_Set"],
-    "ECMO":["ECMO_Flow_norm"]
-  }
-
-const TITLE_COLOR = {
-  "RA": "#A4D65E",
-  "NC": "#A4D65E",
-  "MASK": "#A4D65E",
-  "BB": "#A4D65E",
-
-  "HFNC": "#41B6E6",
-  "CPAP": "#41B6E6",
-  "BIPAP": "#41B6E6",
-
-  "PSV": "#FBDB65",
-  "PCV": "#FBDB65",
-  "VCV": "#FBDB65",
-
-  "HFOV": "#C6579A",
-  "HFJV": "#C6579A",
-  
-  "ECMO": "#F6323E",
-}
-
-
 class RespiratoryScoresTooltip extends PureComponent {
   render() {
     let { location, timeStamp,
@@ -85,7 +48,7 @@ class RespiratoryScoresTooltip extends PureComponent {
     return (
       <div style={{ display:"flex",flexDirection:"row",justifyContent:"space-between",
                     padding:5,boxShadow:"0px 0px 5px black",whiteSpace:"nowrap",
-                    backgroundColor: ward==="8S" ? "#ff0000" : "#ffe7c9"}}>
+                    backgroundColor: ward==="8S" ? "#ff2a22" : "#ffe7c9"}}>
         <div style={{display:"flex",flexDirection:"column",justifyContent:"center"}}>
           <h1 className="RespiratoryScoresTooltip-title">{ward}: {room}</h1>
         </div>
@@ -128,7 +91,7 @@ class RespiratoryScoresTooltip extends PureComponent {
           <table className="RespiratoryScoresTooltip-table">
             <tbody>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
                 <td>{Machine_Type}</td>
               </tr>
               <tr>
@@ -153,24 +116,24 @@ class RespiratoryScoresTooltip extends PureComponent {
           <table className="RespiratoryScoresTooltip-table">
             <tbody>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
                 <td>{Machine_Type}</td>
               </tr>
               <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">Left Beat Rate</td>
-                <td>{Left_Beat_Rate}</td>
+                <td>{Left_Beat_Rate} bpm</td>
               </tr>
               <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">Left Pump</td>
-                <td>{Left_Pump}</td>
+                <td>{Left_Pump} mL/kg/min</td>
               </tr>
               <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">Right Beat Rate</td>
-                <td>{Right_Beat_Rate}</td>
+                <td>{Right_Beat_Rate} bpm</td>
               </tr>
               <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">Right Pump</td>
-                <td>{Right_Pump}</td>
+                <td>{Right_Pump} mL/kg/min</td>
               </tr>
               <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">Left Ejection</td>
@@ -193,12 +156,12 @@ class RespiratoryScoresTooltip extends PureComponent {
           <table className="RespiratoryScoresTooltip-table">
             <tbody>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
                 <td>{Machine_Type}</td>
               </tr>
               <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
-                <td>{HeartWare_Pump_Flow}</td>
+                <td>{HeartWare_Pump_Flow} LPM</td>
               </tr>
             </tbody>
           </table>
@@ -213,12 +176,12 @@ class RespiratoryScoresTooltip extends PureComponent {
           <table className="RespiratoryScoresTooltip-table">
             <tbody>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
-                <td>{Machine_Type}</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
+                <td>{Machine_Type} LPM</td>
               </tr>
               <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
-                <td>{Impella_Flow_Rate}</td>
+                <td>{Impella_Flow_Rate} LPM</td>
               </tr>
             </tbody>
           </table>
@@ -233,12 +196,12 @@ class RespiratoryScoresTooltip extends PureComponent {
           <table className="RespiratoryScoresTooltip-table">
             <tbody>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
                 <td>{Machine_Type}</td>
               </tr>
               <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
-                <td>{Quadrox_Flow}</td>
+                <td>{Quadrox_Flow} LPM</td>
               </tr>
             </tbody>
           </table>
@@ -253,7 +216,7 @@ class RespiratoryScoresTooltip extends PureComponent {
           <table className="RespiratoryScoresTooltip-table">
             <tbody>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Machine</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
                 <td>{Machine_Type}</td>
               </tr>
               <tr>
@@ -269,22 +232,436 @@ class RespiratoryScoresTooltip extends PureComponent {
 
   getRespiratoryDisplay(respiratoryVariables) {
     let {RST} = respiratoryVariables
-    if (RST==="PSV") {
-      let {PIP,PEEP,FIO2} = respiratoryVariables
+    if (RST==="RA") {
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{RST}</h1>
+        </div>
+      );
+    }
+    if (RST==="MASK") {
+      let {FiO2} = respiratoryVariables;
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{RST}</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
+                <td>{FiO2}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (RST==="BB") {
+      let FlowRate = respiratoryVariables["Flow Rate"];
+      let FiO2 = respiratoryVariables["FiO2"];
       return (
         <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
           <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
           <table className="RespiratoryScoresTooltip-table">
             <tbody>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">PIP</td>
-                <td>{PIP} cm H<sub>2</sub>O</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">Flow Rate</td>
+                <td>{FlowRate} !!!unit!!!</td>
+              </tr>
+              <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">FiO<sub>2</sub></td>
-                <td>{FIO2}%</td>
+                <td>{FiO2}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (RST==="NC") {
+      let FlowRate = respiratoryVariables["Flow Rate"];
+      let FiO2 = respiratoryVariables["FiO2"];
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Flow Rate</td>
+                <td>{FlowRate} LPM</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">FiO<sub>2</sub></td>
+                <td>{FiO2}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (RST==="HFNC") {
+      let FiO2 = respiratoryVariables["FiO2"];
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
+                <td>{FiO2} cm H<sub>2</sub>O</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (RST==="CPAP") {
+      let CPAP = respiratoryVariables["CPAP"];
+      let CPAPFlow = respiratoryVariables["CPAP Flow"];
+      let Mask = respiratoryVariables["Mask"];
+      let FiO2 = respiratoryVariables["FiO2"];
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">CPAP</td>
+                <td>{CPAP} cm H<sub>2</sub>O</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">CPAP Flow</td>
+                <td>{CPAPFlow} LPM</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Mask</td>
+                <td>{Mask}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
+                <td>{FiO2} cm H<sub>2</sub>O</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (RST==="BIPAP") {
+      let IPAP = respiratoryVariables["IPAP"];
+      let EPAP = respiratoryVariables["EPAP"];
+      let Rate = respiratoryVariables["Rate"];
+      let RiseTime = respiratoryVariables["Rise Time"];
+      let Mask = respiratoryVariables["Mask"];
+      let FiO2 = respiratoryVariables["FiO2"];
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">IPAP</td>
+                <td>{IPAP} cm H<sub>2</sub>O</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">EPAP</td>
+                <td>{EPAP} cm H<sub>2</sub>O</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Rate</td>
+                <td>{Rate} BPM</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Rise Time</td>
+                <td>{RiseTime} sec</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Mask</td>
+                <td>{Mask}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
+                <td>{FiO2}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (RST==="BVM") {
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+        </div>
+      );
+    }
+    if (RST==="PSV") {
+      let {PS} = respiratoryVariables;
+      let {PEEP} = respiratoryVariables;
+      let {FiO2} = respiratoryVariables;
+      let {Tv} = respiratoryVariables;
+      let {RR} = respiratoryVariables;
+      let {EtCO2} = respiratoryVariables;
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+          <div style={{display:"flex"}}>
+            <div>
+              <table className="RespiratoryScoresTooltip-table">
+                <tbody>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">PS</td>
+                    <td>{PS} cm H<sub>2</sub>O</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">PEEP</td>
+                    <td>{PEEP} cm H<sub>2</sub>O</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
+                    <td>{FiO2}%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <table className="RespiratoryScoresTooltip-table">
+                <tbody>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">Tv</td>
+                    <td>{Tv} mL</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">RR</td>
+                    <td>{RR} BPM</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">EtCO2</td>
+                    <td>{EtCO2} cm H<sub>2</sub>O</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    if (RST==="PCV") {
+      let {PIP} = respiratoryVariables;
+      let {PEEP} = respiratoryVariables;
+      let {VR} = respiratoryVariables;
+      let {PS} = respiratoryVariables;
+      let {FiO2} = respiratoryVariables;
+      let TvMandatory = respiratoryVariables["Tv (mandatory)"];
+      let TvSpontaneous = respiratoryVariables["Tv (spontaneous)"];
+      let {RR} = respiratoryVariables;
+      let {EtCO2} = respiratoryVariables;
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+          <div style={{display:"flex"}}>
+            <div>
+              <table className="RespiratoryScoresTooltip-table">
+                <tbody>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">PIP</td>
+                    <td>{PIP} cm H<sub>2</sub>O</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">PEEP</td>
+                    <td>{PEEP} cm H<sub>2</sub>O</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">VR</td>
+                    <td>{VR} BPM</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">PS</td>
+                    <td>{PS} mL</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
+                    <td>{FiO2} mL</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <table className="RespiratoryScoresTooltip-table">
+                <tbody>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">Tv (mand)</td>
+                    <td>{TvMandatory} mL</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">Tv (spont)</td>
+                    <td>{TvSpontaneous} BPM</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">RR</td>
+                    <td>{RR} cm H<sub>2</sub>O</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">EtCO2</td>
+                    <td>{EtCO2} cm H<sub>2</sub>O</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    if (RST==="VCV") {
+      let {TvSet} = respiratoryVariables["Tv (set)"];
+      let {PEEP} = respiratoryVariables;
+      let {PS} = respiratoryVariables;
+      let {FiO2} = respiratoryVariables;
+      let {PIP} = respiratoryVariables;
+      let {RR} = respiratoryVariables;
+      let {EtCO2} = respiratoryVariables;
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+          <div style={{display:"flex"}}>
+            <div>
+              <table className="RespiratoryScoresTooltip-table">
+                <tbody>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">Tv (set)</td>
+                    <td>{TvSet} mL</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">PEEP</td>
+                    <td>{PEEP} cm H<sub>2</sub>O</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">PS</td>
+                    <td>{PS} BPM</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
+                    <td>{FiO2} mL</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <table className="RespiratoryScoresTooltip-table">
+                <tbody>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">PIP</td>
+                    <td>{PIP} mL</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">RR</td>
+                    <td>{RR} BPM</td>
+                  </tr>
+                  <tr>
+                    <td className="RespiratoryScoresTooltip-table-variableName">EtCO2</td>
+                    <td>{EtCO2} cm H<sub>2</sub>O</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    if (RST==="HFOV") {
+      let {MAP} = respiratoryVariables;
+      let {Amplitude} = respiratoryVariables;
+      let {Frequency} = respiratoryVariables;
+      let {Power} = respiratoryVariables;
+      let {FiO2} = respiratoryVariables;
+      let {Flow} = respiratoryVariables;
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">MAP</td>
+                <td>{MAP}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Amplitude</td>
+                <td>{Amplitude}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Frequency</td>
+                <td>{Frequency} Hz</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Power</td>
+                <td>{Power}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
+                <td>{FiO2}%</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
+                <td>{Flow} LPM</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    if (RST==="HFJV") {
+      let HFJVPIP = respiratoryVariables["HFJV PIP"];
+      let HFJVRate = respiratoryVariables["HFJV Rate"];
+      let HFJViTime = respiratoryVariables["HFJV iTime"];
+      let HFJVMAP = respiratoryVariables["HFJV MAP"];
+      let HFJVPEEP = respiratoryVariables["HFJV PEEP"];
+      let {FiO2} = respiratoryVariables;
+      let {PIP} = respiratoryVariables;
+      let {PEEP} = respiratoryVariables;
+      let {Rate} = respiratoryVariables;
+      return (
+        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
+          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">HFJVPIP</td>
+                <td>{HFJVPIP} mL</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">HFJVRate</td>
+                <td>{HFJVRate} BPM</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">HFJViTime</td>
+                <td>{HFJViTime} Sec</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">HFJVMAP</td>
+                <td>{HFJVMAP}</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">HFJVPEEP</td>
+                <td>{HFJVPEEP} cm H<sub>2</sub>O</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
+                <td>{FiO2}%</td>
+              </tr>
+            </tbody>
+          </table>
+          {/* CMV under HFJV */}
+          <h1 className="RespiratoryScoresTooltip-title">CMV</h1>
+          <table className="RespiratoryScoresTooltip-table">
+            <tbody>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">PIP</td>
+                <td>{PIP} mL</td>
               </tr>
               <tr>
                 <td className="RespiratoryScoresTooltip-table-variableName">PEEP</td>
                 <td>{PEEP} cm H<sub>2</sub>O</td>
+              </tr>
+              <tr>
+                <td className="RespiratoryScoresTooltip-table-variableName">Rate</td>
+                <td>{Rate} BPM</td>
               </tr>
             </tbody>
           </table>
