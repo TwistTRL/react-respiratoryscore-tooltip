@@ -607,7 +607,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                   "td",
                   null,
                   FlowRate,
-                  " !!!unit!!!"
+                  " LPM"
                 )
               ),
               _react2.default.createElement(
