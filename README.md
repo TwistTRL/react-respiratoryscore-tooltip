@@ -10,7 +10,7 @@ https://twisttrl.github.io/react-respiratoryscore-tooltip
 
 # Input requirement for RespiratoryScoreTooltip
   * RST
-    ** one of 13 predefined RST (RA,MASK,BB,NC,HFNC,CPAP,BIPAP,BVM,PSV,PCV,VCV,HFOV,HFJV)
+    * one of 13 predefined RST (RA,MASK,BB,NC,HFNC,CPAP,BIPAP,BVM,PSV,PCV,VCV,HFOV,HFJV)
   * FiO2
   * Flow Rate
   * CPAP
