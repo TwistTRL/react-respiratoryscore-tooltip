@@ -1326,11 +1326,12 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
         );
       }
       if (RST === "VCV") {
-        var TvSet = respiratoryVariables["Tv (set)"].TvSet;
+        var _Tv = respiratoryVariables.Tv;
         var _PEEP2 = respiratoryVariables.PEEP;
         var _PS2 = respiratoryVariables.PS;
         var _FiO8 = respiratoryVariables.FiO2;
-        var _PIP = respiratoryVariables.PIP;
+
+        var PIPMeasured = respiratoryVariables["PIP (measured)"];
         var _RR2 = respiratoryVariables.RR;
         var _EtCO2 = respiratoryVariables.EtCO2;
 
@@ -1360,12 +1361,12 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                     _react2.default.createElement(
                       "td",
                       { className: "RespiratoryScoresTooltip-table-variableName" },
-                      "Tv (set)"
+                      "Tv"
                     ),
                     _react2.default.createElement(
                       "td",
                       null,
-                      TvSet,
+                      _Tv,
                       " mL"
                     )
                   ),
@@ -1438,12 +1439,12 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                     _react2.default.createElement(
                       "td",
                       { className: "RespiratoryScoresTooltip-table-variableName" },
-                      "PIP"
+                      "PIP (meas)"
                     ),
                     _react2.default.createElement(
                       "td",
                       null,
-                      _PIP,
+                      PIPMeasured,
                       " mL"
                     )
                   ),
@@ -1609,7 +1610,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
         var HFJVMAP = respiratoryVariables["HFJV MAP"];
         var HFJVPEEP = respiratoryVariables["HFJV PEEP"];
         var _FiO10 = respiratoryVariables.FiO2;
-        var _PIP2 = respiratoryVariables.PIP;
+        var _PIP = respiratoryVariables.PIP;
         var _PEEP3 = respiratoryVariables.PEEP;
         var _Rate = respiratoryVariables.Rate;
 
@@ -1633,7 +1634,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "HFJVPIP"
+                  "HFJV PIP"
                 ),
                 _react2.default.createElement(
                   "td",
@@ -1648,7 +1649,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "HFJVRate"
+                  "HFJV Rate"
                 ),
                 _react2.default.createElement(
                   "td",
@@ -1663,7 +1664,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "HFJViTime"
+                  "HFJV iTime"
                 ),
                 _react2.default.createElement(
                   "td",
@@ -1678,7 +1679,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "HFJVMAP"
+                  "HFJV MAP"
                 ),
                 _react2.default.createElement(
                   "td",
@@ -1692,7 +1693,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   { className: "RespiratoryScoresTooltip-table-variableName" },
-                  "HFJVPEEP"
+                  "HFJV PEEP"
                 ),
                 _react2.default.createElement(
                   "td",
@@ -1746,7 +1747,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
                 _react2.default.createElement(
                   "td",
                   null,
-                  _PIP2,
+                  _PIP,
                   " mL"
                 )
               ),

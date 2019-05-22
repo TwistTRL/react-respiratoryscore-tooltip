@@ -510,11 +510,11 @@ class RespiratoryScoresTooltip extends PureComponent {
       );
     }
     if (RST==="VCV") {
-      let {TvSet} = respiratoryVariables["Tv (set)"];
+      let {Tv} = respiratoryVariables;
       let {PEEP} = respiratoryVariables;
       let {PS} = respiratoryVariables;
       let {FiO2} = respiratoryVariables;
-      let {PIP} = respiratoryVariables;
+      let PIPMeasured = respiratoryVariables["PIP (measured)"];
       let {RR} = respiratoryVariables;
       let {EtCO2} = respiratoryVariables;
       return (
@@ -525,8 +525,8 @@ class RespiratoryScoresTooltip extends PureComponent {
               <table className="RespiratoryScoresTooltip-table">
                 <tbody>
                   <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">Tv (set)</td>
-                    <td>{TvSet} mL</td>
+                    <td className="RespiratoryScoresTooltip-table-variableName">Tv</td>
+                    <td>{Tv} mL</td>
                   </tr>
                   <tr>
                     <td className="RespiratoryScoresTooltip-table-variableName">PEEP</td>
@@ -547,8 +547,8 @@ class RespiratoryScoresTooltip extends PureComponent {
               <table className="RespiratoryScoresTooltip-table">
                 <tbody>
                   <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">PIP</td>
-                    <td>{PIP} mL</td>
+                    <td className="RespiratoryScoresTooltip-table-variableName">PIP (meas)</td>
+                    <td>{PIPMeasured} mL</td>
                   </tr>
                   <tr>
                     <td className="RespiratoryScoresTooltip-table-variableName">RR</td>
@@ -622,23 +622,23 @@ class RespiratoryScoresTooltip extends PureComponent {
           <table className="RespiratoryScoresTooltip-table">
             <tbody>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">HFJVPIP</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">HFJV PIP</td>
                 <td>{HFJVPIP} mL</td>
               </tr>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">HFJVRate</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">HFJV Rate</td>
                 <td>{HFJVRate} BPM</td>
               </tr>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">HFJViTime</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">HFJV iTime</td>
                 <td>{HFJViTime} Sec</td>
               </tr>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">HFJVMAP</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">HFJV MAP</td>
                 <td>{HFJVMAP}</td>
               </tr>
               <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">HFJVPEEP</td>
+                <td className="RespiratoryScoresTooltip-table-variableName">HFJV PEEP</td>
                 <td>{HFJVPEEP} cm H<sub>2</sub>O</td>
               </tr>
               <tr>
