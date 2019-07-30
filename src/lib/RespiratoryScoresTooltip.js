@@ -2,43 +2,84 @@ import React, {PureComponent} from "react";
 import {format} from "date-fns";
 import "./RespiratoryScoresTooltip.css";
 
+const UNIT_MAP = {
+  "AIRWAY_ASSESSMENT": null,
+  "APRV_PHIGH": "cm H2O",
+  "APRV_PLOW": "cm H2O",
+  "APRV_PS": "cm H2O",
+  "BIPAP_EPAP": "cm H2O",
+  "BIPAP_IPAP": "cm H2O",
+  "BIPAP_RATE": "BPM",
+  "C_STAT": "mL/cm H2O",
+  "CPAP": "cm H2O",
+  "CPAP_FLOW": "LPM",
+  "ETCO2": "mmHg",
+  "ETT_SIZE": "mm",
+  "FIO2": "%",
+  "FLOW_RATE": "LPM",
+  "HE": "%",
+  "HFJV_ITIME": "sec",
+  "HFJV_MAP": "cm H2O",
+  "HFJV_MONITORED_PEEP": "cm H2O",
+  "HFJV_PIP": "cm H2O",
+  "HFJV_RATE": "BPM",
+  "HFNC": "LPM",
+  "HFOV_AMPLITUDE": "cm H2O",
+  "HFOV_BIAS_FLOW": "LPM",
+  "HFOV_FREQUENCY": "Hz",
+  "HFOV_ITIME": "%",
+  "HFOV_MODEL": null,
+  "HFOV_POWER": "cm H2O",
+  "INO_DOSE": "PPM",
+  "ITIME": "sec",
+  "MAP": "cm H2O",
+  "MASK": null,
+  "MODE": null,
+  "MVE": "mL",
+  "NAVA": null,
+  "OXYGEN_FIO2_DELIVERY_DEVICE": null,
+  "OXYGEN_LMIN_DELIVERY_DEVICE": null,
+  "OXYGEN_SOURCE": null,
+  "PEEP": "cm H2O",
+  "PIP": "cm H2O",
+  "PPLAT": "cm H2O",
+  "PS": "cm H2O",
+  "RESPIRATORY_RATE": "RPM",
+  "RISE_TIME": "sec",
+  "TV": "mL",
+  "TV_MAND": "mL",
+  "TV_SPONT": "mL",
+  "VENT_RATE": "RPM"
+};
+
 class RespiratoryScoresTooltip extends PureComponent {
   render() {
-    let { location, timeStamp,
-          ECMOVariables,
-          VADVariables,
-          respiratoryVariables,
+    let { timeStamp,
+          location,
+          ECMOVADVariable,
+          respiratorySuppportVariable,
           pageX,pageY,
           } = this.props;
-    let ECMODisplay, VADDisplay, respiratoryDisplay = null;
     let LocationDisplay = this.getLocationDisplay(location,timeStamp);
-   
-    if (ECMOVariables) {
-      ECMODisplay = this.getECMODisplay(ECMOVariables);
+    let ECMOVADDisplay, respiratorySupportDisplay = null;
+
+    if (respiratorySuppportVariable){
+      respiratorySupportDisplay =  this.getRespiratorySupportDisplay(respiratorySuppportVariable);
     }
-    if (VADVariables) {
-      VADDisplay =  this.getVADDisplay(VADVariables);
-    }
-    if (respiratoryVariables){
-      respiratoryDisplay =  this.getRespiratoryDisplay(respiratoryVariables);
+    
+    if (ECMOVADVariable){
+      //ECMOVADDisplay =  this.getECMOVADDisplay(ECMOVADVariable);
     }
     
     return (
-      <div style={{ position:"fixed",zIndex:9999,
-                    top:pageY-50,left:10+pageX,
-                    pointerEvents:"none",
-                    width:300,
-                    borderRadius:4,padding:0,margin:0,overflow:"hidden",
-                    border: "solid 1px black", boxShadow:"2px 2px 2px black"
+      <div  className="RespiratoryScoresTooltip"
+            style={{position:"fixed",zIndex:9999,
+                    top:pageY-50,left:10+pageX
                     }}>
         {/*Location section*/}
         {LocationDisplay}
-        {/*ECMO section*/}
-        {ECMODisplay}
-        {/*VAD section*/}
-        {VADDisplay}
         {/*RSS section*/}
-        {respiratoryDisplay}
+        {respiratorySupportDisplay}
       </div>
     )
   }
@@ -64,378 +105,188 @@ class RespiratoryScoresTooltip extends PureComponent {
     )
   }
 
-  getECMODisplay(ECMOVariables) {
-    let {ECMO_Flow_Rate_Weight_Normalized} = ECMOVariables;
-    return (
-      <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-        <h1 className="RespiratoryScoresTooltip-title">ECMO</h1>
-        <table className="RespiratoryScoresTooltip-table">
-          <tbody>
-            <tr>
-              <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
-              <td>{ECMO_Flow_Rate_Weight_Normalized} mL/kg/min</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-
-  getVADDisplay(VADVariables) {
-    let {Machine_Type} = VADVariables;
-    if (Machine_Type==="Abiomed") {
-      let Abiomed_Cardiac_Index = VADVariables["Abiomed Cardiac Index"];
+  generateTableRow(title,value,unit) {
+    if (value===null){
+      return null;
+    }
+    if (unit!==null) {
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
-          <table className="RespiratoryScoresTooltip-table">
-            <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
-                <td>{Machine_Type}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Cardiac Index</td>
-                <td>{Abiomed_Cardiac_Index}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <tr>
+          <td>{title}</td>
+          <td>{value} {unit}</td>
+        </tr>
       );
     }
-    if (Machine_Type==="Berlin") {
-      let Left_Beat_Rate = VADVariables["Berlin Heart Left Beat Rate"];
-      let Left_Pump = VADVariables["Berlin Heart Left Pump"];
-      let Right_Beat_Rate = VADVariables["Berlin Heart Right Beat Rate"];
-      let Right_Pump = VADVariables["Berlin Heart Right Pump"];
-      let Membrane_Movement_Left_Ejection = VADVariables["Membrane Movement, Left Ejection"] || "";
-      let Membrane_Movement_Left_Filling = VADVariables["Membrane Movement, Left Filling"] || "";
+    else {
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
-          <table className="RespiratoryScoresTooltip-table">
-            <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
-                <td>{Machine_Type}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Left Beat Rate</td>
-                <td>{Left_Beat_Rate} bpm</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Left Pump</td>
-                <td>{Left_Pump} mL/kg/min</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Right Beat Rate</td>
-                <td>{Right_Beat_Rate} bpm</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Right Pump</td>
-                <td>{Right_Pump} mL/kg/min</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Left Ejection</td>
-                <td>{Membrane_Movement_Left_Ejection.slice(0,2)}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Left Filling</td>
-                <td>{Membrane_Movement_Left_Filling.slice(0,2)}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      );
-    }
-    if (Machine_Type==="HeartWare") {
-      let HeartWare_Pump_Flow = VADVariables["HeartWare Pump Flow"];
-      return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
-          <table className="RespiratoryScoresTooltip-table">
-            <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
-                <td>{Machine_Type}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
-                <td>{HeartWare_Pump_Flow} LPM</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      );
-    }
-    if (Machine_Type==="Impella") {
-      let Impella_Flow_Rate = VADVariables["Impella Flow Rate"];
-      return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
-          <table className="RespiratoryScoresTooltip-table">
-            <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
-                <td>{Machine_Type} LPM</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
-                <td>{Impella_Flow_Rate} LPM</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      );
-    }
-    if (Machine_Type==="Quadrox") {
-      let Quadrox_Flow = VADVariables["Quadrox Flow (L/min)"];
-      return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
-          <table className="RespiratoryScoresTooltip-table">
-            <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
-                <td>{Machine_Type}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
-                <td>{Quadrox_Flow} LPM</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      );
-    }
-    if (Machine_Type==="RotaFlow") {
-      let RateFlow_Flow_Measure = VADVariables["RotaFlow Flow Measure (L/min)"];
-      return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">VAD</h1>
-          <table className="RespiratoryScoresTooltip-table">
-            <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Device</td>
-                <td>{Machine_Type}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
-                <td>{RateFlow_Flow_Measure}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <tr>
+          <td>{title}</td>
+          <td>{value}</td>
+        </tr>
       );
     }
   }
-
-  getRespiratoryDisplay(respiratoryVariables) {
-    let {RST} = respiratoryVariables
+  
+  getRespiratorySupportDisplay(respiratorySupportVariable) {
+    let {RST} = respiratorySupportVariable
     if (RST==="RA") {
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{RST}</h1>
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{RST}</h1>
         </div>
       );
     }
     if (RST==="MASK") {
-      let {FiO2} = respiratoryVariables;
+      let { MASK,PIP,PEEP,FLOW_RATE,
+            FIO2,INO_DOSE} = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{RST}</h1>
-          <table className="RespiratoryScoresTooltip-table">
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{RST}</h1>
+          <table>
             <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
-                <td>{FiO2}%</td>
-              </tr>
+              {this.generateTableRow("Mask",MASK,UNIT_MAP["MASK"])}
+              {this.generateTableRow("PIP",PIP,UNIT_MAP["PIP"])}
+              {this.generateTableRow("PEEP",PEEP,UNIT_MAP["PEEP"])}
+              {this.generateTableRow("Flow Rate",FLOW_RATE,UNIT_MAP["FLOW_RATE"])}
+              {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
+              {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
             </tbody>
           </table>
         </div>
       );
     }
     if (RST==="BB") {
-      let FlowRate = respiratoryVariables["Flow Rate"];
-      let FiO2 = respiratoryVariables["FiO2"];
+      let { MASK,FLOW_RATE,FIO2} = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
-          <table className="RespiratoryScoresTooltip-table">
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{respiratorySupportVariable.RST}</h1>
+          <table>
             <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Flow Rate</td>
-                <td>{FlowRate} LPM</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">FiO<sub>2</sub></td>
-                <td>{FiO2}%</td>
-              </tr>
+              {this.generateTableRow("Mask",MASK,UNIT_MAP["MASK"])}
+              {this.generateTableRow("Flow Rate",FLOW_RATE,UNIT_MAP["FLOW_RATE"])}
+              {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
             </tbody>
           </table>
         </div>
       );
     }
     if (RST==="NC") {
-      let FlowRate = respiratoryVariables["Flow Rate"];
-      let FiO2 = respiratoryVariables["FiO2"];
+      let { FLOW_RATE,FIO2,INO_DOSE } = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
-          <table className="RespiratoryScoresTooltip-table">
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{respiratorySupportVariable.RST}</h1>
+          <table>
             <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Flow Rate</td>
-                <td>{FlowRate} LPM</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">FiO<sub>2</sub></td>
-                <td>{FiO2}%</td>
-              </tr>
+              {this.generateTableRow("Flow Rate",FLOW_RATE,UNIT_MAP["FLOW_RATE"])}
+              {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
+              {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
             </tbody>
           </table>
         </div>
       );
     }
     if (RST==="HFNC") {
-      let FiO2 = respiratoryVariables["FiO2"];
+      let { FLOW_RATE,FIO2,INO_DOSE,HE } = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
-          <table className="RespiratoryScoresTooltip-table">
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{respiratorySupportVariable.RST}</h1>
+          <table>
             <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
-                <td>{FiO2} cm H<sub>2</sub>O</td>
-              </tr>
+              {this.generateTableRow("Flow Rate",FLOW_RATE,UNIT_MAP["FLOW_RATE"])}
+              {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
+              {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
+              {this.generateTableRow("He",HE,UNIT_MAP["HE"])}
             </tbody>
           </table>
         </div>
       );
     }
     if (RST==="CPAP") {
-      let CPAP = respiratoryVariables["CPAP"];
-      let CPAPFlow = respiratoryVariables["CPAP Flow"];
-      let Mask = respiratoryVariables["Mask"];
-      let FiO2 = respiratoryVariables["FiO2"];
+      let { MASK,CPAP,CPAP_FLOW,FIO2,INO_DOSE,HE } = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
-          <table className="RespiratoryScoresTooltip-table">
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{respiratorySupportVariable.RST}</h1>
+          <table>
             <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">CPAP</td>
-                <td>{CPAP} cm H<sub>2</sub>O</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">CPAP Flow</td>
-                <td>{CPAPFlow} LPM</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Mask</td>
-                <td>{Mask}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
-                <td>{FiO2} cm H<sub>2</sub>O</td>
-              </tr>
+              {this.generateTableRow("Mask",MASK,UNIT_MAP["MASK"])}
+              {this.generateTableRow("CPAP",CPAP,UNIT_MAP["CPAP"])}
+              {this.generateTableRow("CPAP Flow",CPAP_FLOW,UNIT_MAP["CPAP_FLOW"])}
+              {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
+              {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
+              {this.generateTableRow("He",INO_DOSE,UNIT_MAP["HE"])}
             </tbody>
           </table>
         </div>
       );
     }
     if (RST==="BIPAP") {
-      let IPAP = respiratoryVariables["IPAP"];
-      let EPAP = respiratoryVariables["EPAP"];
-      let Rate = respiratoryVariables["Rate"];
-      let RiseTime = respiratoryVariables["Rise Time"];
-      let Mask = respiratoryVariables["Mask"];
-      let FiO2 = respiratoryVariables["FiO2"];
+      let { MASK,BIPAP_IPAP,BIPAP_EPAP,BIPAP_RATE,
+            RISE_TIME,FIO2,INO_DOSE,HE } = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
-          <table className="RespiratoryScoresTooltip-table">
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{respiratorySupportVariable.RST}</h1>
+          <table>
             <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">IPAP</td>
-                <td>{IPAP} cm H<sub>2</sub>O</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">EPAP</td>
-                <td>{EPAP} cm H<sub>2</sub>O</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Rate</td>
-                <td>{Rate} BPM</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Rise Time</td>
-                <td>{RiseTime} sec</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Mask</td>
-                <td>{Mask}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
-                <td>{FiO2}%</td>
-              </tr>
+              {this.generateTableRow("Mask",MASK,UNIT_MAP["MASK"])}
+              {this.generateTableRow("IPAP",BIPAP_IPAP,UNIT_MAP["BIPAP_IPAP"])}
+              {this.generateTableRow("EPAP",BIPAP_EPAP,UNIT_MAP["BIPAP_EPAP"])}
+              {this.generateTableRow("Rate",BIPAP_RATE,UNIT_MAP["BIPAP_RATE"])}
+              {this.generateTableRow("Rise Time",RISE_TIME,UNIT_MAP["RISE_TIME"])}
+              {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
+              {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
+              {this.generateTableRow("He",INO_DOSE,UNIT_MAP["HE"])}
             </tbody>
           </table>
         </div>
       );
     }
     if (RST==="BVM") {
+      let { ETT_SIZE,PIP,PEEP,FIO2,INO_DOSE,HE } = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{respiratorySupportVariable.RST}</h1>
+          <table>
+            <tbody>
+              {this.generateTableRow("ETT Size",ETT_SIZE,UNIT_MAP["ETT_SIZE"])}
+              {this.generateTableRow("PIP",PIP,UNIT_MAP["PIP"])}
+              {this.generateTableRow("PEEP",PEEP,UNIT_MAP["PEEP"])}
+              {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
+              {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
+              {this.generateTableRow("He",INO_DOSE,UNIT_MAP["HE"])}
+            </tbody>
+          </table>
         </div>
       );
     }
     if (RST==="PSV") {
-      let {PS} = respiratoryVariables;
-      let {PEEP} = respiratoryVariables;
-      let {FiO2} = respiratoryVariables;
-      let {Tv} = respiratoryVariables;
-      let {RR} = respiratoryVariables;
-      let {EtCO2} = respiratoryVariables;
+      let { ETT_SIZE,PS,PEEP,MAP,FIO2,INO_DOSE,HE,
+            ETCO2,TV,TV_SPONT,RESPIRATORY_RATE,
+            C_STAT} = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{respiratorySupportVariable.RST}</h1>
           <div style={{display:"flex"}}>
             <div>
-              <table className="RespiratoryScoresTooltip-table">
+              <table>
                 <tbody>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">PS</td>
-                    <td>{PS} cm H<sub>2</sub>O</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">PEEP</td>
-                    <td>{PEEP} cm H<sub>2</sub>O</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
-                    <td>{FiO2}%</td>
-                  </tr>
+                  {this.generateTableRow("ETT Size",ETT_SIZE,UNIT_MAP["ETT_SIZE"])}
+                  {this.generateTableRow("PS",PS,UNIT_MAP["PS"])}
+                  {this.generateTableRow("PEEP",PEEP,UNIT_MAP["PEEP"])}
+                  {this.generateTableRow("MAP",MAP,UNIT_MAP["MAP"])}
+                  {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
+                  {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
+                  {this.generateTableRow("He",HE,UNIT_MAP["HE"])}
                 </tbody>
               </table>
             </div>
             <div>
-              <table className="RespiratoryScoresTooltip-table">
+              <table>
                 <tbody>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">Tv</td>
-                    <td>{Tv} mL</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">RR</td>
-                    <td>{RR} BPM</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">EtCO2</td>
-                    <td>{EtCO2} cm H<sub>2</sub>O</td>
-                  </tr>
+                  {this.generateTableRow("EtCO2",ETCO2,UNIT_MAP["ETCO2"])}
+                  {this.generateTableRow("TV",TV,UNIT_MAP["TV"])}
+                  {this.generateTableRow("TV(spont)",TV_SPONT,UNIT_MAP["TV_SPONT"])}
+                  {this.generateTableRow("Resp Rate",RESPIRATORY_RATE,UNIT_MAP["RESPIRATORY_RATE"])}
+                  {this.generateTableRow("Cstat",C_STAT,UNIT_MAP["C_STAT"])}
                 </tbody>
               </table>
             </div>
@@ -444,64 +295,41 @@ class RespiratoryScoresTooltip extends PureComponent {
       );
     }
     if (RST==="PCV") {
-      let {PIP} = respiratoryVariables;
-      let {PEEP} = respiratoryVariables;
-      let {VR} = respiratoryVariables;
-      let {PS} = respiratoryVariables;
-      let {FiO2} = respiratoryVariables;
-      let TvMandatory = respiratoryVariables["Tv (mandatory)"];
-      let TvSpontaneous = respiratoryVariables["Tv (spontaneous)"];
-      let {RR} = respiratoryVariables;
-      let {EtCO2} = respiratoryVariables;
+      let { ETT_SIZE,PIP,PEEP,PS,VENT_RATE,ITIME,MAP,FIO2,INO_DOSE,HE,
+            ETCO2,TV,TV_MAND,TV_SPONT,RESPIRATORY_RATE,C_STAT,
+            APRV_PHIGH,APRV_PLOW,APRV_PS} = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{respiratorySupportVariable.RST}</h1>
           <div style={{display:"flex"}}>
             <div>
-              <table className="RespiratoryScoresTooltip-table">
+              <table>
                 <tbody>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">PIP</td>
-                    <td>{PIP} cm H<sub>2</sub>O</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">PEEP</td>
-                    <td>{PEEP} cm H<sub>2</sub>O</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">VR</td>
-                    <td>{VR} BPM</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">PS</td>
-                    <td>{PS} mL</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
-                    <td>{FiO2} mL</td>
-                  </tr>
+                  {this.generateTableRow("ETT Size",ETT_SIZE,UNIT_MAP["ETT_SIZE"])}
+                  {this.generateTableRow("PIP",PIP,UNIT_MAP["PIP"])}
+                  {this.generateTableRow("PEEP",PEEP,UNIT_MAP["PEEP"])}
+                  {this.generateTableRow("PS",PS,UNIT_MAP["PS"])}
+                  {this.generateTableRow("Vent Rate",VENT_RATE,UNIT_MAP["VENT_RATE"])}
+                  {this.generateTableRow("iTime",ITIME,UNIT_MAP["ITIME"])}
+                  {this.generateTableRow("MAP",MAP,UNIT_MAP["MAP"])}
+                  {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
+                  {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
+                  {this.generateTableRow("He",HE,UNIT_MAP["HE"])}
                 </tbody>
               </table>
             </div>
             <div>
-              <table className="RespiratoryScoresTooltip-table">
+              <table>
                 <tbody>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">Tv (mand)</td>
-                    <td>{TvMandatory} mL</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">Tv (spont)</td>
-                    <td>{TvSpontaneous} BPM</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">RR</td>
-                    <td>{RR} cm H<sub>2</sub>O</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">EtCO2</td>
-                    <td>{EtCO2} cm H<sub>2</sub>O</td>
-                  </tr>
+                  {this.generateTableRow("EtCO2",ETCO2,UNIT_MAP["ETCO2"])}
+                  {this.generateTableRow("TV",TV,UNIT_MAP["TV"])}
+                  {this.generateTableRow("TV(mand)",TV_MAND,UNIT_MAP["TV_MAND"])}
+                  {this.generateTableRow("TV(spont)",TV_SPONT,UNIT_MAP["TV_SPONT"])}
+                  {this.generateTableRow("Resp Rate",RESPIRATORY_RATE,UNIT_MAP["RESPIRATORY_RATE"])}
+                  {this.generateTableRow("Cstat",C_STAT,UNIT_MAP["C_STAT"])}
+                  {this.generateTableRow("APRV Phigh",APRV_PHIGH,UNIT_MAP["APRV_PHIGH"])}
+                  {this.generateTableRow("APRV Plow",APRV_PLOW,UNIT_MAP["APRV_PLOW"])}
+                  {this.generateTableRow("APRV PS",APRV_PS,UNIT_MAP["APRV_PS"])}
                 </tbody>
               </table>
             </div>
@@ -510,54 +338,38 @@ class RespiratoryScoresTooltip extends PureComponent {
       );
     }
     if (RST==="VCV") {
-      let {Tv} = respiratoryVariables;
-      let {PEEP} = respiratoryVariables;
-      let {PS} = respiratoryVariables;
-      let {FiO2} = respiratoryVariables;
-      let PIPMeasured = respiratoryVariables["PIP (measured)"];
-      let {RR} = respiratoryVariables;
-      let {EtCO2} = respiratoryVariables;
+      let { ETT_SIZE,TV_MAND,PPLAT,PEEP,PS,
+            VENT_RATE,ITIME,MAP,FIO2,INO_DOSE,HE,
+            ETCO2,PIP,TV_SPONT,RESPIRATORY_RATE,C_STAT} = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{respiratorySupportVariable.RST}</h1>
           <div style={{display:"flex"}}>
             <div>
-              <table className="RespiratoryScoresTooltip-table">
+              <table>
                 <tbody>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">Tv</td>
-                    <td>{Tv} mL</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">PEEP</td>
-                    <td>{PEEP} cm H<sub>2</sub>O</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">PS</td>
-                    <td>{PS} BPM</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
-                    <td>{FiO2} mL</td>
-                  </tr>
+                  {this.generateTableRow("ETT Size",ETT_SIZE,UNIT_MAP["ETT_SIZE"])}
+                  {this.generateTableRow("TV(mand)",TV_MAND,UNIT_MAP["TV_MAND"])}
+                  {this.generateTableRow("Pplat",PPLAT,UNIT_MAP["PPLAT"])}
+                  {this.generateTableRow("PEEP",PEEP,UNIT_MAP["PEEP"])}
+                  {this.generateTableRow("PS",PS,UNIT_MAP["PS"])}
+                  {this.generateTableRow("Vent Rate",VENT_RATE,UNIT_MAP["VENT_RATE"])}
+                  {this.generateTableRow("iTime",ITIME,UNIT_MAP["ITIME"])}
+                  {this.generateTableRow("MAP",MAP,UNIT_MAP["MAP"])}
+                  {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
+                  {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
+                  {this.generateTableRow("He",HE,UNIT_MAP["HE"])}
                 </tbody>
               </table>
             </div>
             <div>
-              <table className="RespiratoryScoresTooltip-table">
+              <table>
                 <tbody>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">PIP (meas)</td>
-                    <td>{PIPMeasured} mL</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">RR</td>
-                    <td>{RR} BPM</td>
-                  </tr>
-                  <tr>
-                    <td className="RespiratoryScoresTooltip-table-variableName">EtCO2</td>
-                    <td>{EtCO2} cm H<sub>2</sub>O</td>
-                  </tr>
+                  {this.generateTableRow("EtCO2",ETCO2,UNIT_MAP["ETCO2"])}
+                  {this.generateTableRow("PIP",PIP,UNIT_MAP["PIP"])}
+                  {this.generateTableRow("TV(spont)",TV_SPONT,UNIT_MAP["TV_SPONT"])}
+                  {this.generateTableRow("Resp Rate",RESPIRATORY_RATE,UNIT_MAP["RESPIRATORY_RATE"])}
+                  {this.generateTableRow("Cstat",C_STAT,UNIT_MAP["C_STAT"])}
                 </tbody>
               </table>
             </div>
@@ -566,105 +378,68 @@ class RespiratoryScoresTooltip extends PureComponent {
       );
     }
     if (RST==="HFOV") {
-      let {MAP} = respiratoryVariables;
-      let {Amplitude} = respiratoryVariables;
-      let {Frequency} = respiratoryVariables;
-      let {Power} = respiratoryVariables;
-      let {FiO2} = respiratoryVariables;
-      let {Flow} = respiratoryVariables;
+      let { ETT_SIZE,MAP,HFOV_AMPLITUDE,HFOV_FREQUENCY,HFOV_ITIME,
+            HFOV_BIAS_FLOW,HFOV_POWER,
+            FIO2,INO_DOSE,HE} = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
-          <table className="RespiratoryScoresTooltip-table">
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{respiratorySupportVariable.RST}</h1>
+          <table>
             <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">MAP</td>
-                <td>{MAP}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Amplitude</td>
-                <td>{Amplitude}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Frequency</td>
-                <td>{Frequency} Hz</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Power</td>
-                <td>{Power}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
-                <td>{FiO2}%</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Flow</td>
-                <td>{Flow} LPM</td>
-              </tr>
+              {this.generateTableRow("ETT Size",ETT_SIZE,UNIT_MAP["ETT_SIZE"])}
+              {this.generateTableRow("MAP",MAP,UNIT_MAP["MAP"])}
+              {this.generateTableRow("Amplitude",HFOV_AMPLITUDE,UNIT_MAP["HFOV_AMPLITUDE"])}
+              {this.generateTableRow("Frequency",HFOV_FREQUENCY,UNIT_MAP["HFOV_FREQUENCY"])}
+              {this.generateTableRow("Flow",HFOV_BIAS_FLOW,UNIT_MAP["HFOV_BIAS_FLOW"])}
+              {this.generateTableRow("Power",HFOV_POWER,UNIT_MAP["HFOV_POWER"])}
+              {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
+              {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
+              {this.generateTableRow("He",HE,UNIT_MAP["HE"])}
             </tbody>
           </table>
         </div>
       );
     }
     if (RST==="HFJV") {
-      let HFJVPIP = respiratoryVariables["HFJV PIP"];
-      let HFJVRate = respiratoryVariables["HFJV Rate"];
-      let HFJViTime = respiratoryVariables["HFJV iTime"];
-      let HFJVMAP = respiratoryVariables["HFJV MAP"];
-      let HFJVPEEP = respiratoryVariables["HFJV PEEP"];
-      let {FiO2} = respiratoryVariables;
-      let {PIP} = respiratoryVariables;
-      let {PEEP} = respiratoryVariables;
-      let {Rate} = respiratoryVariables;
+      let { ETT_SIZE,HFJV_PIP,HFJV_MONITORED_PEEP,HFJV_RATE,HFJV_ITIME,HFJV_MAP,
+            PIP,PEEP,PS,VENT_RATE,ITIME,MAP,FIO2,INO_DOSE,HE,
+            ETCO2,RESPIRATORY_RATE,TV_MAND,TV_SPONT} = respiratorySupportVariable;
       return (
-        <div style={{padding:5,backgroundColor:"#fff8ef",fontSize:"12px",whiteSpace:"nowrap"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{respiratoryVariables.RST}</h1>
-          <table className="RespiratoryScoresTooltip-table">
-            <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">HFJV PIP</td>
-                <td>{HFJVPIP} mL</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">HFJV Rate</td>
-                <td>{HFJVRate} BPM</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">HFJV iTime</td>
-                <td>{HFJViTime} Sec</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">HFJV MAP</td>
-                <td>{HFJVMAP}</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">HFJV PEEP</td>
-                <td>{HFJVPEEP} cm H<sub>2</sub>O</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">FiO2</td>
-                <td>{FiO2}%</td>
-              </tr>
-            </tbody>
-          </table>
-          {/* CMV under HFJV */}
-          <h1 className="RespiratoryScoresTooltip-title">CMV</h1>
-          <table className="RespiratoryScoresTooltip-table">
-            <tbody>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">PIP</td>
-                <td>{PIP} mL</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">PEEP</td>
-                <td>{PEEP} cm H<sub>2</sub>O</td>
-              </tr>
-              <tr>
-                <td className="RespiratoryScoresTooltip-table-variableName">Rate</td>
-                <td>{Rate} BPM</td>
-              </tr>
-            </tbody>
-          </table>
+        <div className="RespiratoryScoresTooltip-RespiratorySupport">
+          <h1>{respiratorySupportVariable.RST}</h1>
+          <div style={{display:"flex"}}>
+            <div>
+              <table>
+                <tbody>
+                  {this.generateTableRow("ETT Size",ETT_SIZE,UNIT_MAP["ETT_SIZE"])}
+                  {this.generateTableRow("HFJV PIP",HFJV_PIP,UNIT_MAP["HFJV_PIP"])}
+                  {this.generateTableRow("HFJV PEEP",HFJV_MONITORED_PEEP,UNIT_MAP["HFJV_MONITORED_PEEP"])}
+                  {this.generateTableRow("HFJV Rate",HFJV_RATE,UNIT_MAP["HFJV_RATE"])}
+                  {this.generateTableRow("HFJV iTime",HFJV_ITIME,UNIT_MAP["HFJV_ITIME"])}
+                  {this.generateTableRow("HFJV MAP",HFJV_MAP,UNIT_MAP["HFJV_MAP"])}
+                  {this.generateTableRow("PIP",PIP,UNIT_MAP["PIP"])}
+                  {this.generateTableRow("PEEP",PEEP,UNIT_MAP["PEEP"])}
+                  {this.generateTableRow("PS",PS,UNIT_MAP["PS"])}
+                  {this.generateTableRow("Vent Rate",VENT_RATE,UNIT_MAP["VENT_RATE"])}
+                  {this.generateTableRow("iTime",ITIME,UNIT_MAP["ITIME"])}
+                  {this.generateTableRow("MAP",MAP,UNIT_MAP["MAP"])}
+                  {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
+                  {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
+                  {this.generateTableRow("He",HE,UNIT_MAP["HE"])}
+                </tbody>
+              </table>
+            </div>
+            <div>
+              <table>
+                <tbody>
+                  {this.generateTableRow("EtCO2",ETCO2,UNIT_MAP["ETCO2"])}
+                  {this.generateTableRow("Resp Rate",RESPIRATORY_RATE,UNIT_MAP["RESPIRATORY_RATE"])}
+                  {this.generateTableRow("TV(mand)",TV_MAND,UNIT_MAP["TV_MAND"])}
+                  {this.generateTableRow("TV(spont)",TV_SPONT,UNIT_MAP["TV_SPONT"])}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       );
     }

@@ -1,16 +1,33 @@
+.RespiratoryScoresTooltip-RespiratorySupport {
+  padding: 5;
+  background-color: #fff8ef;
+  font-size: 12px;
+  white-space: nowrap;
+  padding: 5px;
+}
 
-
-.RespiratoryScoresTooltip-title {
+.RespiratoryScoresTooltip h1 {
   margin: 0;
   font-size: 16px;
 }
 
-.RespiratoryScoresTooltip-table {
+.RespiratoryScoresTooltip-RespiratorySupport table {
   width: 100%;
   margin-left: 10px;
   font-size: 12px;
 }
 
-.RespiratoryScoresTooltip-table-variableName {
+.RespiratoryScoresTooltip-RespiratorySupport table td:nth-child(odd) {
   font-weight: 700;
+}
+
+.RespiratoryScoresTooltip {
+  pointer-events: none;
+  width: 400px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  border: solid 1px black;
+  border-radius: 4;
+  box-shadow: 2px 2px 2px black;
 }

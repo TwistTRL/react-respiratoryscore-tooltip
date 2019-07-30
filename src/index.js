@@ -2,119 +2,233 @@ import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import RespiratoryScoresTooltip from "./lib/RespiratoryScoresTooltip";
 
+
+
 const LOCATION_SAMPLE = {
   "8S:203":{ward:"8S", room:"203"},
   "8E:301":{ward:"8E", room:"301"}
 }
 
-const ECMO_VARIABLES_SAMPLE = {
+const ECMO_VAD_VARIABLES_SAMPLE = {
   on: {ECMO_Flow_Rate_Weight_Normalized: 92},
   off: null
 };
 
-const VAD_VARIABLES_SAMPLE = {
-  Abiomed: {"Machine_Type": "Abiomed",
-            "Abiomed Cardiac Index": 2.5
-            },
-  Berlin: { "Machine_Type": "Berlin",
-            "Berlin Heart Left Beat Rate": 70,
-            "Berlin Heart Left Pump": 25,
-            "Berlin Heart Right Beat Rate": 70,
-            "Berlin Heart Right Pump": 25,
-            "Membrane Movement, Left Ejection": "++ Complete/almost complete membrane movement to end",
-            "Membrane Movement, Left Filling": "++ Complete/almost complete membrane movement to end"
-            },
-  HeartWare: {"Machine_Type": "HeartWare",
-              "HeartWare Pump Flow": 2.3
-              },
-  Impella: {"Machine_Type": "Impella",
-            "Impella Flow Rate": 1.8
-            },
-  Quadrox: {"Machine_Type": "Quadrox",
-            "Quadrox Flow (L/min)": 2.3
-            },
-  RotaFlow: {"Machine_Type": "RotaFlow",
-            "RotaFlow Flow Measure (L/min)": 3.56
-            },
-};
+const RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE = {
+  "AIRWAY_ASSESSMENT": null,
+  "APRV_PHIGH": null,
+  "APRV_PLOW": null,
+  "APRV_PS": null,
+  "BIPAP_EPAP": null,
+  "BIPAP_IPAP": null,
+  "BIPAP_RATE": null,
+  "C_STAT": null,
+  "CPAP": null,
+  "CPAP_FLOW": null,
+  "ETCO2": null,
+  "ETT_SIZE": null,
+  "FIO2": null,
+  "FLOW_RATE": null,
+  "HE": null,
+  "HFJV_ITIME": null,
+  "HFJV_MAP": null,
+  "HFJV_MONITORED_PEEP": null,
+  "HFJV_PIP": null,
+  "HFJV_RATE": null,
+  "HFNC": null,
+  "HFOV_AMPLITUDE": null,
+  "HFOV_BIAS_FLOW": null,
+  "HFOV_FREQUENCY": null,
+  "HFOV_ITIME": "%",
+  "HFOV_MODEL": null,
+  "HFOV_POWER": null,
+  "INO_DOSE": null,
+  "ITIME": null,
+  "MAP": null,
+  "MASK": null,
+  "MODE": null,
+  "MVE": null,
+  "NAVA": null,
+  "OXYGEN_FIO2_DELIVERY_DEVICE": null,
+  "OXYGEN_LMIN_DELIVERY_DEVICE": null,
+  "OXYGEN_SOURCE": null,
+  "PEEP": null,
+  "PIP": null,
+  "PPLAT": null,
+  "PS": null,
+  "RESPIRATORY_RATE": null,
+  "RISE_TIME": null,
+  "TV": null,
+  "TV_MAND": null,
+  "TV_SPONT": null,
+  "VENT_RATE": null
+  };
 
-const RESPIRATORY_VARIABLES_SAMPLE = {
-  "RA":{"RST":"RA"},
-  "MASK":{"RST":"MASK",
-          "FiO2":25},
-  "BB":{"RST":"BB",
-        "Flow Rate":30,
-        "FiO2":20},
-  "HFNC":{"RST":"HFNC",
-          "FiO2":40},
-  "CPAP":{"RST":"CPAP",
-          "CPAP":10,
-          "CPAP Flow":10,
-          "FiO2":20,
-          "Mask":"3M"},
-  "BIPAP":{ "RST":"BIPAP",
-            "IPAP":10,
-            "EPAP":10,
-            "Rate":20,
-            "Rise Time":123,
-            "FiO2":30,
-            "Mask":"3M"
-            },
-  "BVM":{ "RST":"BVM",
+const RESPIRATORY_SUPPORT_VARIABLE_SAMPLE = {
+  "RA":{...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+        "RST":"RA"},
+  "MASK":{...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+          "RST": "MASK",
+          "PIP": 10,
+          "PEEP": 1,
+          "FLOW_RATE": 12,
+          "FIO2": 25,
+          "INO_DOSE": 12
           },
-  "PSV":{ "RST":"PSV",
+  "BB":{...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+        "RST": "BB",
+        "MASK": "xxx",
+        "FLOW_RATE": 30,
+        "FIO2": 20,
+        "iNO Dose": 0.5,
+        },
+  "NC":{...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+        "RST":"NC",
+        "FLOW_RATE":30,
+        "FIO2":20,
+        "INO_DOSE":30,
+        },
+  "HFNC":{...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+          "RST": "HFNC",
+          "FLOW_RATE": 30,
+          "FIO2": 21,
+          "INO_DOSE": 0.8,
+          "HE": 20
+          },
+  "CPAP":{...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+          "RST":"CPAP",
+          "MASK":"XXX",
+          "CPAP":10,
+          "CPAP_FLOW":10,
+          "FiO2":20,
+          "INO_DOSE": 0.8,
+          "HE": 20
+          },
+  "BIPAP":{ ...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+            "RST":"BIPAP",
+            "MASK":"xxx",
+            "BIPAP_IPAP":10,
+            "BIPAP_EPAP":10,
+            "BIPAP_RATE":20,
+            "RISE_TIME":123,
+            "FIO2":30,
+            "INO_DOSE":1,
+            "HE": 20,
+            },
+  "BVM":{ ...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+          "RST":"BVM",
+          "ETT_SIZE": 4,
+          "PIP":20,
+          "PEEP":10,
+          "FIO2":21,
+          "INO_DOSE":1,
+          "HE":0.5,
+          },
+  "PSV":{ ...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+          "RST":"PSV",
+          "ETT_SIZE": 4,
           "PS": 10,
           "PEEP":10,
-          "FiO2":20,
-          "Tv":100,
-          "RR": 20,
-          "EtCO2":30,
-          },
-  "PCV":{ "RST":"PCV",
-          "PIP":10,
-          "PEEP":10,
-          "VR":10,
-          "PS":10,
-          "FiO2":10,
-          "Tv (mandatory)":10,
-          "Tv (spontaneous)":10,
-          "RR":10,
-          "EtCO2":10,
-          },
-  "VCV":{ "RST":"VCV",
-          "Tv":10,
-          "PEEP":10,
-          "PS":10,
-          "FiO2":10,
-          "PIP (measured)":10,
-          "RR":10,
-          "EtCO2":10,
-          },
-  "HFOV":{"RST":"HFOV",
           "MAP":10,
-          "Amplitude":10,
-          "Frequency":10,
-          "Power":10,
-          "FiO2":10,
-          "Flow":10,
+          "FIO2":20,
+          "INO_DOSE":0.5,
+          "HE":0.5,
+          "ETCO2":30,
+          "TV":100,
+          "TV_SPONT":80,
+          "RESPIRATORY_RATE": 20,
+          "C_STAT":10,
           },
-  "HFJV":{"RST":"HFJV",
-          "HFJV PIP":10,
-          "HFJV Rate":10,
-          "HFJV iTime":10,
-          "HFJV MAP":10,
-          "HFJV PEEP":10,
-          "FiO2":10,
+  "PCV":{ ...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+          "RST":"PCV",
+          "ETT_SIZE": 4,
           "PIP":10,
           "PEEP":10,
-          "VR":10,
           "PS":10,
-          "FiO2":10,
-          "Tv (mandatory)":10,
-          "Tv (spontaneous)":10,
-          "RR":10,
-          "EtCO2":10,
+          "VENT_RATE":10,
+          "ITIME":10,
+          "MAP":10,
+          "FIO2":10,
+          "INO_DOSE":0.5,
+          "HE":0.5,
+          "ETCO2":10,
+          "TV_MAND":10,
+          "TV_SPONT":10,
+          "RESPIRATORY_RATE":10,
+          "C_STAT":10,
+          "APRV_PHIGH":10,
+          "APRV_PLOW":10,
+          "APRV_PS":10,
+          },
+  "VCV":{ ...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+          "RST":"VCV",
+          "ETT_SIZE": 2,
+          "TV_MAND": 70,
+          "PPLAT": 12,
+          "PEEP": 123,
+          "PS": 123,
+          "VENT_RATE": 123,
+          "ITIME": 123,
+          "MAP": 123,
+          "FIO2": 123,
+          "INO_DOSE": 123,
+          "HE": 123,
+          "ETCO2": 123,
+          "PIP": 123,
+          "TV_SPONT": 123,
+          "RESPIRATORY_RATE": 123,
+          "C_STAT": 10,
+          },
+  "HFOV":{...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+          "RST":"HFOV",
+          "ETT_SIZE": 2,
+          "MAP":10,
+          "HFOV_AMPLITUDE":10,
+          "HFOV_FREQUENCY":10,
+          "HFOV_ITIME":10,
+          "HFOV_BIAS_FLOW":10,
+          "HFOV_POWER":10,
+          "FIO2":10,
+          "INO_DOSE":12,
+          "HE":10,
+          },
+  "HFJV":{...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
+          "RST":"HFJV",
+          "ETT_SIZE":2,
+          "HFJV_PIP":10,
+          "HFJV_PEEP":10,
+          "HFJV_RATE":10,
+          "HFJV_ITIME":10,
+          "HFJV_MAP":10,
+          "PIP":10,
+          "PEEP":10,
+          "PS":10,
+          "VENT_RATE":10,
+          "ITIME":10,
+          "MAP":10,
+          "FIO2":10,
+          "INO_DOSE":10,
+          "HE":10,
+          "ETCO2":10,
+          "RESPIRATORY_RATE":10,
+          "TV_MAND":10,
+          "TV_SPONT":10,
           }
+}
+
+function mask_object(obj) {
+  let newObj = {...obj};
+  for (let k of Object.keys(obj)) {
+    if (obj[k]===null || k=="RST") {
+      continue;
+    }
+    else {
+      if (Math.random()<0.5) {
+        newObj[k] = null;
+      }
+    }
+  }
+  return newObj;
 }
 
 class App extends Component{
@@ -123,15 +237,19 @@ class App extends Component{
     this.state={pageX:100, pageY:200,
                 locationSelection: "8S:203",
                 timeStamp: new Date(),
-                ECMOVariablesSelection: "on",
-                VADVariablesSelection: "Abiomed",
-                respiratoryVariablesSelection: "RA"
+                respiratorySupportVariableSelection: "RA",
+                mask: false
                 };
   }
   render() {
     let { pageX,pageY,
           locationSelection,timeStamp,
-          ECMOVariablesSelection,VADVariablesSelection,respiratoryVariablesSelection} = this.state;
+          respiratorySupportVariableSelection,
+          mask} = this.state;
+    let respiratorySupportVariable = RESPIRATORY_SUPPORT_VARIABLE_SAMPLE[respiratorySupportVariableSelection];
+    if (mask) {
+      respiratorySupportVariable = mask_object(respiratorySupportVariable);
+    }
     return (
       <>
         {/*pageX*/}
@@ -178,51 +296,18 @@ class App extends Component{
             Update timeStamp
           </button>
         </div>
-        {/*ECMO Variables*/}
+        {/*Respiratory Support Variables*/}
         <div>
-          ECMOVariables:
+          respiratorySupportVariable:
           preset:
           <select onChange={(ev)=>{
-                              this.setState({ECMOVariablesSelection:ev.target.value});
-                            }}
-          >
-            <option value="on">on</option>
-            <option value="off">off</option>
-          </select> 
-          <pre>
-            {JSON.stringify(ECMO_VARIABLES_SAMPLE[ECMOVariablesSelection])}
-          </pre>
-        </div>
-        {/*VAD Variables*/}
-        <div>
-          VADVariables:
-          preset:
-          <select onChange={(ev)=>{
-                              this.setState({VADVariablesSelection:ev.target.value});
-                            }}
-          >
-            <option value="Abiomed">Abiomed</option>
-            <option value="Berlin">Berlin</option>
-            <option value="HeartWare">HeartWare</option>
-            <option value="Impella">Impella</option>
-            <option value="Quadrox">Quadrox</option>
-            <option value="RotaFlow">RotaFlow</option>
-          </select> 
-          <pre>
-            {JSON.stringify(VAD_VARIABLES_SAMPLE[VADVariablesSelection])}
-          </pre>
-        </div>
-        {/*Respiratory Variables*/}
-        <div>
-          respiratoryVariables:
-          preset:
-          <select onChange={(ev)=>{
-                              this.setState({respiratoryVariablesSelection:ev.target.value});
+                              this.setState({respiratorySupportVariableSelection:ev.target.value});
                             }}
           >
             <option value="RA">RA</option>
             <option value="MASK">MASK</option>
             <option value="BB">BB</option>
+            <option value="NC">NC</option>
             <option value="HFNC">HFNC</option>
             <option value="CPAP">CPAP</option>
             <option value="BIPAP">BIPAP</option>
@@ -232,16 +317,18 @@ class App extends Component{
             <option value="VCV">VCV</option>
             <option value="HFOV">HFOV</option>
             <option value="HFJV">HFJV</option>
-          </select> 
+          </select>
+          mask:
+          <input  type="checkbox" checked={mask}
+                  onChange={ ()=>this.setState({mask: !mask}) }
+                  />
           <pre>
-            {JSON.stringify(RESPIRATORY_VARIABLES_SAMPLE[respiratoryVariablesSelection])}
+            {JSON.stringify(respiratorySupportVariable,null,' ')}
           </pre>
         </div>
         {/*Actual tooltip display*/}
         <RespiratoryScoresTooltip location={LOCATION_SAMPLE[locationSelection]} timeStamp={timeStamp}
-                                  ECMOVariables={ECMO_VARIABLES_SAMPLE[ECMOVariablesSelection]}
-                                  VADVariables={VAD_VARIABLES_SAMPLE[VADVariablesSelection]}
-                                  respiratoryVariables={RESPIRATORY_VARIABLES_SAMPLE[respiratoryVariablesSelection]}
+                                  respiratorySuppportVariable={respiratorySupportVariable}
                                   pageX={pageX} pageY={pageY}
         />
       </>
