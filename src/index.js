@@ -219,7 +219,7 @@ const RESPIRATORY_SUPPORT_VARIABLE_SAMPLE = {
 function mask_object(obj) {
   let newObj = {...obj};
   for (let k of Object.keys(obj)) {
-    if (obj[k]===null || k=="RST") {
+    if (obj[k]===null || k==="RST") {
       continue;
     }
     else {

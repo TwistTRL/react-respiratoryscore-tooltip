@@ -113,7 +113,10 @@ class RespiratoryScoresTooltip extends PureComponent {
       return (
         <tr>
           <td>{title}</td>
-          <td>{value} {unit}</td>
+          <td>
+            <strong>{value}</strong>
+            <small>{unit}</small>
+          </td>
         </tr>
       );
     }
@@ -121,7 +124,7 @@ class RespiratoryScoresTooltip extends PureComponent {
       return (
         <tr>
           <td>{title}</td>
-          <td>{value}</td>
+          <td><strong>{value}</strong></td>
         </tr>
       );
     }
@@ -213,7 +216,7 @@ class RespiratoryScoresTooltip extends PureComponent {
               {this.generateTableRow("CPAP Flow",CPAP_FLOW,UNIT_MAP["CPAP_FLOW"])}
               {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
               {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
-              {this.generateTableRow("He",INO_DOSE,UNIT_MAP["HE"])}
+              {this.generateTableRow("He",HE,UNIT_MAP["HE"])}
             </tbody>
           </table>
         </div>
@@ -234,7 +237,7 @@ class RespiratoryScoresTooltip extends PureComponent {
               {this.generateTableRow("Rise Time",RISE_TIME,UNIT_MAP["RISE_TIME"])}
               {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
               {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
-              {this.generateTableRow("He",INO_DOSE,UNIT_MAP["HE"])}
+              {this.generateTableRow("He",HE,UNIT_MAP["HE"])}
             </tbody>
           </table>
         </div>
@@ -252,7 +255,7 @@ class RespiratoryScoresTooltip extends PureComponent {
               {this.generateTableRow("PEEP",PEEP,UNIT_MAP["PEEP"])}
               {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
               {this.generateTableRow("iNO Dose",INO_DOSE,UNIT_MAP["INO_DOSE"])}
-              {this.generateTableRow("He",INO_DOSE,UNIT_MAP["HE"])}
+              {this.generateTableRow("He",HE,UNIT_MAP["HE"])}
             </tbody>
           </table>
         </div>
@@ -265,7 +268,7 @@ class RespiratoryScoresTooltip extends PureComponent {
       return (
         <div className="RespiratoryScoresTooltip-RespiratorySupport">
           <h1>{respiratorySupportVariable.RST}</h1>
-          <div style={{display:"flex"}}>
+          <div className="RespiratoryScoresTooltip-RespiratorySupport-DualTable">
             <div>
               <table>
                 <tbody>
@@ -301,7 +304,7 @@ class RespiratoryScoresTooltip extends PureComponent {
       return (
         <div className="RespiratoryScoresTooltip-RespiratorySupport">
           <h1>{respiratorySupportVariable.RST}</h1>
-          <div style={{display:"flex"}}>
+          <div className="RespiratoryScoresTooltip-RespiratorySupport-DualTable">
             <div>
               <table>
                 <tbody>
@@ -344,7 +347,7 @@ class RespiratoryScoresTooltip extends PureComponent {
       return (
         <div className="RespiratoryScoresTooltip-RespiratorySupport">
           <h1>{respiratorySupportVariable.RST}</h1>
-          <div style={{display:"flex"}}>
+          <div className="RespiratoryScoresTooltip-RespiratorySupport-DualTable">
             <div>
               <table>
                 <tbody>
@@ -390,6 +393,7 @@ class RespiratoryScoresTooltip extends PureComponent {
               {this.generateTableRow("MAP",MAP,UNIT_MAP["MAP"])}
               {this.generateTableRow("Amplitude",HFOV_AMPLITUDE,UNIT_MAP["HFOV_AMPLITUDE"])}
               {this.generateTableRow("Frequency",HFOV_FREQUENCY,UNIT_MAP["HFOV_FREQUENCY"])}
+              {this.generateTableRow("iTime",HFOV_ITIME,UNIT_MAP["HFOV_ITIME"])}
               {this.generateTableRow("Flow",HFOV_BIAS_FLOW,UNIT_MAP["HFOV_BIAS_FLOW"])}
               {this.generateTableRow("Power",HFOV_POWER,UNIT_MAP["HFOV_POWER"])}
               {this.generateTableRow("FiO2",FIO2,UNIT_MAP["FIO2"])}
@@ -407,7 +411,7 @@ class RespiratoryScoresTooltip extends PureComponent {
       return (
         <div className="RespiratoryScoresTooltip-RespiratorySupport">
           <h1>{respiratorySupportVariable.RST}</h1>
-          <div style={{display:"flex"}}>
+          <div className="RespiratoryScoresTooltip-RespiratorySupport-DualTable">
             <div>
               <table>
                 <tbody>
