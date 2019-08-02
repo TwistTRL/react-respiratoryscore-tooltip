@@ -1,5 +1,7 @@
 import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 import {format} from "date-fns";
+// CSS
 import "./RespiratoryScoresTooltip.css";
 
 const UNIT_MAP = {
@@ -60,7 +62,7 @@ class RespiratoryScoresTooltip extends PureComponent {
           respiratorySuppportVariable,
           pageX,pageY,
           } = this.props;
-    let LocationDisplay = this.getLocationDisplay(location,timeStamp);
+    let LocationDisplay = this.getLocationTimeDisplay(location,timeStamp);
     let ECMOVADDisplay, respiratorySupportDisplay = null;
 
     if (respiratorySuppportVariable){
@@ -84,27 +86,23 @@ class RespiratoryScoresTooltip extends PureComponent {
     )
   }
 
-  getLocationDisplay(location,timeStamp) {
+  getLocationTimeDisplay(location,timeStamp) {
     let {ward,room} = location;
+    let backgroundColor = ward==="8S" ? "#ff2a22" : "#ffe7c9"
     return (
-      <div style={{ display:"flex",flexDirection:"row",justifyContent:"space-between",
-                    padding:5,boxShadow:"0px 0px 5px black",whiteSpace:"nowrap",
-                    backgroundColor: ward==="8S" ? "#ff2a22" : "#ffe7c9"}}>
-        <div style={{display:"flex",flexDirection:"column",justifyContent:"center"}}>
-          <h1 className="RespiratoryScoresTooltip-title">{ward}: {room}</h1>
+      <div  className="RespiratoryScoresTooltip-LocationTime"
+            style={{backgroundColor}}>
+        <div className="RespiratoryScoresTooltip-LocationTime-Location">
+          <h1>{ward}: {room}</h1>
         </div>
-        <div style={{display:"flex",flexDirection:"column",fontSize:"12px",fontStyle:"italic"}}>
-          <div style={{textAlign:"right"}}>
-            {format(timeStamp,"MMM DD YYYY")}
-          </div>
-          <div style={{textAlign:"right"}}>
-            {format(timeStamp,"HH:mm:ss")}
-          </div>
+        <div className="RespiratoryScoresTooltip-LocationTime-Time">
+          <i>{format(timeStamp,"MMM DD YYYY")}</i>
+          <i>{format(timeStamp,"HH:mm:ss")}</i>
         </div>
       </div>
     )
   }
-
+  
   generateTableRow(title,value,unit) {
     if (value===null){
       return null;
@@ -131,7 +129,10 @@ class RespiratoryScoresTooltip extends PureComponent {
   }
   
   getRespiratorySupportDisplay(respiratorySupportVariable) {
-    let {RST} = respiratorySupportVariable
+    if (respiratorySupportVariable===null) {
+      return null;
+    }
+    let {RST} = respiratorySupportVariable;
     if (RST==="RA") {
       return (
         <div className="RespiratoryScoresTooltip-RespiratorySupport">
@@ -449,6 +450,14 @@ class RespiratoryScoresTooltip extends PureComponent {
     }
     return null;
   }
+}
+
+RespiratoryScoresTooltip.propTypes = {
+  location: PropTypes.object,
+  ECMOVADVariable: PropTypes.object,
+  respiratorySuppportVariable: PropTypes.object,
+  pageX: PropTypes.number.isRequired,
+  pageY: PropTypes.number.isRequired,
 }
 
 export default RespiratoryScoresTooltip

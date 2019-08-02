@@ -2,8 +2,6 @@ import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import RespiratoryScoresTooltip from "./lib/RespiratoryScoresTooltip";
 
-
-
 const LOCATION_SAMPLE = {
   "8S:203":{ward:"8S", room:"203"},
   "8E:301":{ward:"8E", room:"301"}
@@ -77,7 +75,7 @@ const RESPIRATORY_SUPPORT_VARIABLE_SAMPLE = {
           },
   "BB":{...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
         "RST": "BB",
-        "MASK": "xxx",
+        "MASK": "Large",
         "FLOW_RATE": 30,
         "FIO2": 20,
         "iNO Dose": 0.5,
@@ -97,16 +95,16 @@ const RESPIRATORY_SUPPORT_VARIABLE_SAMPLE = {
           },
   "CPAP":{...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
           "RST":"CPAP",
-          "MASK":"XXX",
+          "MASK":"Large",
           "CPAP":10,
           "CPAP_FLOW":10,
-          "FiO2":20,
+          "FIO2":20,
           "INO_DOSE": 0.8,
           "HE": 20
           },
   "BIPAP":{ ...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
             "RST":"BIPAP",
-            "MASK":"xxx",
+            "MASK":"Small",
             "BIPAP_IPAP":10,
             "BIPAP_EPAP":10,
             "BIPAP_RATE":20,
@@ -196,7 +194,7 @@ const RESPIRATORY_SUPPORT_VARIABLE_SAMPLE = {
           "RST":"HFJV",
           "ETT_SIZE":2,
           "HFJV_PIP":10,
-          "HFJV_PEEP":10,
+          "HFJV_MONITORED_PEEP":10,
           "HFJV_RATE":10,
           "HFJV_ITIME":10,
           "HFJV_MAP":10,

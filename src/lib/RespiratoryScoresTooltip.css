@@ -47,3 +47,23 @@
 .RespiratoryScoresTooltip-RespiratorySupport-DualTable>div {
   width: 50%;
 }
+
+.RespiratoryScoresTooltip-LocationTime {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.RespiratoryScoresTooltip-LocationTime-Location {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.RespiratoryScoresTooltip-LocationTime-Time {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  font-size: 12px;
+}
