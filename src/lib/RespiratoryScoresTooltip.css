@@ -64,6 +64,6 @@
 .RespiratoryScoresTooltip-LocationTime-Time {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: flex-end;
   font-size: 12px;
 }
