@@ -60,7 +60,7 @@ class RespiratoryScoresTooltip extends PureComponent {
           location,
           ECMOVADVariable,
           respiratorySuppportVariable,
-          pageX,pageY,
+          clientX,clientY,
           } = this.props;
     let LocationDisplay = this.getLocationTimeDisplay(location,timeStamp);
     let ECMOVADDisplay, respiratorySupportDisplay = null;
@@ -76,7 +76,7 @@ class RespiratoryScoresTooltip extends PureComponent {
     return (
       <div  className="RespiratoryScoresTooltip"
             style={{position:"fixed",zIndex:9999,
-                    top:pageY-50,left:10+pageX
+                    top:clientY-50,left:10+clientX
                     }}>
         {/*Location section*/}
         {LocationDisplay}
@@ -456,8 +456,8 @@ RespiratoryScoresTooltip.propTypes = {
   location: PropTypes.object,
   ECMOVADVariable: PropTypes.object,
   respiratorySuppportVariable: PropTypes.object,
-  pageX: PropTypes.number.isRequired,
-  pageY: PropTypes.number.isRequired,
+  clientX: PropTypes.number.isRequired,
+  clientY: PropTypes.number.isRequired,
 }
 
 export default RespiratoryScoresTooltip

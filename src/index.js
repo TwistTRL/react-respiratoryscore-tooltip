@@ -78,7 +78,7 @@ const RESPIRATORY_SUPPORT_VARIABLE_SAMPLE = {
         "MASK": "Large",
         "FLOW_RATE": 30,
         "FIO2": 20,
-        "iNO Dose": 0.5,
+        "INO_DOSE": 0.5,
         },
   "NC":{...RESPIRATORY_SUPPORT_VARIABLE_TEMPLATE,
         "RST":"NC",
@@ -232,7 +232,7 @@ function mask_object(obj) {
 class App extends Component{
   constructor(props){
     super(props);
-    this.state={pageX:100, pageY:200,
+    this.state={clientX:100, clientY:200,
                 locationSelection: "8S:203",
                 timeStamp: new Date(),
                 respiratorySupportVariableSelection: "RA",
@@ -240,7 +240,7 @@ class App extends Component{
                 };
   }
   render() {
-    let { pageX,pageY,
+    let { clientX,clientY,
           locationSelection,timeStamp,
           respiratorySupportVariableSelection,
           mask} = this.state;
@@ -250,21 +250,21 @@ class App extends Component{
     }
     return (
       <>
-        {/*pageX*/}
+        {/*clientX*/}
         <div>
-          pageX:
-          <input  type="range" min={0} max={1000} value={pageX}
+          clientX:
+          <input  type="range" min={0} max={1000} value={clientX}
                   onChange={(ev)=> {
-                              this.setState({pageX:Number.parseInt(ev.target.value)});
+                              this.setState({clientX:Number.parseInt(ev.target.value)});
                             }}
           />
         </div>
-        {/*pageY*/}
+        {/*clientY*/}
         <div>
-          pageY:
-          <input  type="range" min={0} max={1000} value={pageY}
+          clientY:
+          <input  type="range" min={0} max={1000} value={clientY}
                   onChange={(ev)=> {
-                              this.setState({pageY:Number.parseInt(ev.target.value)});
+                              this.setState({clientY:Number.parseInt(ev.target.value)});
                             }}
           />
         </div>
@@ -327,7 +327,7 @@ class App extends Component{
         {/*Actual tooltip display*/}
         <RespiratoryScoresTooltip location={LOCATION_SAMPLE[locationSelection]} timeStamp={timeStamp}
                                   respiratorySuppportVariable={respiratorySupportVariable}
-                                  pageX={pageX} pageY={pageY}
+                                  clientX={clientX} clientY={clientY}
         />
       </>
     );
