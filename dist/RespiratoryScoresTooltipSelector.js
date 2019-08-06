@@ -73,8 +73,10 @@ var RespiratoryScoresTooltipSelector = function (_Component) {
         selectHandler(dataX, selectedLocationID, selectedRSVID, hoveringClientX, hoveringClientY);
       } else {
         var _dataX = (0, _plotUtils.fromDomXCoord_Linear)(width, minX, maxX, hoveringPosition["domX"]);
-        var _selectedRSVID = this.getLeftOrRightRSV(respiratorySupportVariable, _dataX)["ID"];
-        var _selectedLocationID = this.getCurrentLocation(location, _dataX)["ID"];
+        var selectedRSV = this.getLeftOrRightRSV(respiratorySupportVariable, _dataX);
+        var _selectedRSVID = selectedRSV ? selectedRSV["ID"] : null;
+        var selectedLocation = this.getCurrentLocation(location, _dataX);
+        var _selectedLocationID = selectedLocation ? selectedLocation["ID"] : null;
         var _hoveringClientX = hoveringPosition["clientX"];
         var _hoveringClientY = hoveringPosition["clientY"];
         selectHandler(_dataX, _selectedLocationID, _selectedRSVID, _hoveringClientX, _hoveringClientY);
