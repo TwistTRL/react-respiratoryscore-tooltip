@@ -87,13 +87,18 @@ class RespiratoryScoresTooltip extends PureComponent {
   }
 
   getLocationTimeDisplay(location,timeStamp) {
-    let {ward,room} = location;
-    let backgroundColor = ward==="8S" ? "#ff2a22" : "#ffe7c9"
+    let locationString = "Unknown";
+    let backgroundColor = "lightgrey";
+    if (location!==null) {
+      let {ward,room} = location;
+      locationString = `${ward}: ${room}`;
+      backgroundColor = ward==="8S" ? "#ff2a22" : "#ffe7c9";
+    }
     return (
       <div  className="RespiratoryScoresTooltip-LocationTime"
             style={{backgroundColor}}>
         <div className="RespiratoryScoresTooltip-LocationTime-Location">
-          <h1>{ward}: {room}</h1>
+          <h1>{locationString}</h1>
         </div>
         <div className="RespiratoryScoresTooltip-LocationTime-Time">
           <i>{format(timeStamp,"MMM DD YYYY")}</i>

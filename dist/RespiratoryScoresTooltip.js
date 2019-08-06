@@ -123,10 +123,15 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
   }, {
     key: "getLocationTimeDisplay",
     value: function getLocationTimeDisplay(location, timeStamp) {
-      var ward = location.ward,
-          room = location.room;
+      var locationString = "Unknown";
+      var backgroundColor = "lightgrey";
+      if (location !== null) {
+        var ward = location.ward,
+            room = location.room;
 
-      var backgroundColor = ward === "8S" ? "#ff2a22" : "#ffe7c9";
+        locationString = ward + ": " + room;
+        backgroundColor = ward === "8S" ? "#ff2a22" : "#ffe7c9";
+      }
       return _react2.default.createElement(
         "div",
         { className: "RespiratoryScoresTooltip-LocationTime",
@@ -137,9 +142,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
           _react2.default.createElement(
             "h1",
             null,
-            ward,
-            ": ",
-            room
+            locationString
           )
         ),
         _react2.default.createElement(
