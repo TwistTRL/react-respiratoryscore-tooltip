@@ -55,19 +55,26 @@ var RespiratoryScoresTooltipSelector = function (_Component) {
   }, {
     key: "updateTooltip",
     value: function updateTooltip() {
-      var updateTooltipHandler = this.props.updateTooltipHandler;
+      var selectHandler = this.props.selectHandler;
       var _props = this.props,
-          domX = _props.domX,
+          hoveringPosition = _props.hoveringPosition,
           width = _props.width,
           minX = _props.minX,
           maxX = _props.maxX,
           location = _props.location,
           respiratorySupportVariable = _props.respiratorySupportVariable;
 
-      var dataX = (0, _plotUtils.fromDomXCoord_Linear)(width, minX, maxX, domX);
-      var selectedRSV = this.getLeftOrRightRSV(respiratorySupportVariable, dataX);
-      var selectedLocation = this.getCurrentLocation(location, dataX);
-      updateTooltipHandler(dataX, selectedLocation, selectedRSV);
+      if (hoveringPosition === null) {
+        var dataX = null;
+        var selectedLocation = null;
+        var selectedRSV = null;
+        selectHandler(dataX, selectedLocation, selectedRSV);
+      } else {
+        var _dataX = (0, _plotUtils.fromDomXCoord_Linear)(width, minX, maxX, hoveringPosition["domX"]);
+        var _selectedRSV = this.getLeftOrRightRSV(respiratorySupportVariable, _dataX);
+        var _selectedLocation = this.getCurrentLocation(location, _dataX);
+        selectHandler(timeStamp, _selectedLocation, _selectedRSV);
+      }
     }
   }, {
     key: "getLeftOrRightRSV",
