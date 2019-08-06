@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
-import RespiratoryScoresTooltip from "./lib/RespiratoryScoresTooltip";
+import RespiratoryScoresTooltip from "./lib";
 
 const LOCATION_SAMPLE = {
   "8S:203":{ward:"8S", room:"203"},
