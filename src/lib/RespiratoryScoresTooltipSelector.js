@@ -25,15 +25,21 @@ class RespiratoryScoresTooltipSelector extends Component {
           location,respiratorySupportVariable} = this.props;
     if (hoveringPosition===null) {
       let dataX = null;
-      let selectedLocation = null;
-      let selectedRSV = null;
-      selectHandler(dataX,selectedLocation,selectedRSV);
+      let selectedLocationID = null;
+      let selectedRSVID = null;
+      let hoveringClientX = null;
+      let hoveringClientY = null;
+      selectHandler(dataX,selectedLocationID,selectedRSVID,
+                    hoveringClientX,hoveringClientY);
     }
     else {
       let dataX = fromDomXCoord_Linear(width,minX,maxX,hoveringPosition["domX"]);
-      let selectedRSV = this.getLeftOrRightRSV(respiratorySupportVariable,dataX);
-      let selectedLocation = this.getCurrentLocation(location,dataX);
-      selectHandler(timeStamp,selectedLocation,selectedRSV);
+      let selectedRSVID = this.getLeftOrRightRSV(respiratorySupportVariable,dataX)["ID"];
+      let selectedLocationID = this.getCurrentLocation(location,dataX)["ID"];
+      let hoveringClientX = hoveringPosition["clientX"];
+      let hoveringClientY = hoveringPosition["clientY"];
+      selectHandler(dataX,selectedLocationID,selectedRSVID,
+                    hoveringClientX,hoveringClientY);
     }
   }
 
