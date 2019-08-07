@@ -65,7 +65,6 @@ class RespiratoryScoresTooltip extends PureComponent {
     let LocationDisplay = this.getLocationTimeDisplay(location,timeStamp);
     let ECMOVADDisplay, respiratorySupportDisplay = null;
 
-    console.log(respiratorySuppportVariable);
     if (respiratorySuppportVariable){
       respiratorySupportDisplay =  this.getRespiratorySupportDisplay(respiratorySuppportVariable);
     }
@@ -93,7 +92,7 @@ class RespiratoryScoresTooltip extends PureComponent {
     if (location!==null) {
       let {NAME} = location;
       locationString = NAME;
-      backgroundColor = NAME==="8S" ? "#ff2a22" : "#ffe7c9";
+      backgroundColor = NAME==="8s" ? "#ff2a22" : "#ffe7c9";
     }
     return (
       <div  className="RespiratoryScoresTooltip-LocationTime"
