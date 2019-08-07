@@ -102,6 +102,7 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
       var ECMOVADDisplay = void 0,
           respiratorySupportDisplay = null;
 
+      console.log(respiratorySuppportVariable);
       if (respiratorySuppportVariable) {
         respiratorySupportDisplay = this.getRespiratorySupportDisplay(respiratorySuppportVariable);
       }
@@ -126,11 +127,10 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
       var locationString = "Unknown";
       var backgroundColor = "lightgrey";
       if (location !== null) {
-        var ward = location.ward,
-            room = location.room;
+        var NAME = location.NAME;
 
-        locationString = ward + ": " + room;
-        backgroundColor = ward === "8S" ? "#ff2a22" : "#ffe7c9";
+        locationString = NAME;
+        backgroundColor = NAME === "8S" ? "#ff2a22" : "#ffe7c9";
       }
       return _react2.default.createElement(
         "div",
