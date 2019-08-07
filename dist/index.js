@@ -3,17 +3,19 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.RespiratoryScoresTooltipSelector = undefined;
+Object.defineProperty(exports, "RespiratoryScoresTooltipSelector", {
+  enumerable: true,
+  get: function get() {
+    return _RespiratoryScoresTooltipSelector.default;
+  }
+});
+exports.default = void 0;
 
-var _RespiratoryScoresTooltip = require("./RespiratoryScoresTooltip");
+var _RespiratoryScoresTooltip = _interopRequireDefault(require("./RespiratoryScoresTooltip"));
 
-var _RespiratoryScoresTooltip2 = _interopRequireDefault(_RespiratoryScoresTooltip);
-
-var _RespiratoryScoresTooltipSelector = require("./RespiratoryScoresTooltipSelector");
-
-var _RespiratoryScoresTooltipSelector2 = _interopRequireDefault(_RespiratoryScoresTooltipSelector);
+var _RespiratoryScoresTooltipSelector = _interopRequireDefault(require("./RespiratoryScoresTooltipSelector"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _RespiratoryScoresTooltip2.default;
-exports.RespiratoryScoresTooltipSelector = _RespiratoryScoresTooltipSelector2.default;
+var _default = _RespiratoryScoresTooltip.default;
+exports.default = _default;
