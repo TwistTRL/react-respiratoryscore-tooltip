@@ -50,7 +50,7 @@ class RespiratoryScoresTooltipSelector extends Component {
       return null;
     }
     let ret = rsv[0];
-    for (let rec in rsv) {
+    for (let rec of rsv) {
       if (rec[RSV_X_KEY]<=dataX) {
         ret = rec;
       }
@@ -63,7 +63,7 @@ class RespiratoryScoresTooltipSelector extends Component {
   
   getCurrentLocation(location,dataX) {
     let ret = null;
-    for (let l in location) {
+    for (let l of location) {
       if (l[LOCATION_START_KEY]<=dataX && dataX<=l[LOCATION_END_KEY]) {
         ret = l;
         break;
