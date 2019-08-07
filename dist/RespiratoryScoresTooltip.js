@@ -783,9 +783,9 @@ var RespiratoryScoresTooltip = function (_PureComponent) {
 }(_react.PureComponent);
 
 RespiratoryScoresTooltip.propTypes = {
-  location: _propTypes2.default.array,
-  ECMOVADVariable: _propTypes2.default.array,
-  respiratorySuppportVariable: _propTypes2.default.array,
+  location: _propTypes2.default.object,
+  ECMOVADVariable: _propTypes2.default.object,
+  respiratorySuppportVariable: _propTypes2.default.object,
   clientX: _propTypes2.default.number,
   clientY: _propTypes2.default.number
 };

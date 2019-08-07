@@ -458,9 +458,9 @@ class RespiratoryScoresTooltip extends PureComponent {
 }
 
 RespiratoryScoresTooltip.propTypes = {
-  location: PropTypes.array,
-  ECMOVADVariable: PropTypes.array,
-  respiratorySuppportVariable: PropTypes.array,
+  location: PropTypes.object,
+  ECMOVADVariable: PropTypes.object,
+  respiratorySuppportVariable: PropTypes.object,
   clientX: PropTypes.number,
   clientY: PropTypes.number,
 }
